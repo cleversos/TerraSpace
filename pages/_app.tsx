@@ -8,6 +8,7 @@ import '../public/assets/css/responsive.css'
 import '../public/assets/css/style.css'
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
+import Link from 'next/link'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -34,7 +35,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="index.html">Overview</a>
+                              <Link href="/">
+                                <a className="nav-link active" aria-current="page">Overview</a>
+                              </Link>
                             </li>
                             {/* <li className="nav-item">
                                 <a className="nav-link" href="staking.html">Staking</a>
@@ -43,7 +46,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                                 <a className="nav-link" href="dashboard.html">Dashbaord</a>
                             </li> */}
                             <li className="nav-item">
-                                <a className="nav-link" href="mint.html">Mint</a>
+                              <Link href="/mint">
+                                <a className="nav-link">Mint</a>
+                              </Link>
                             </li>
                         </ul>
                     </div>

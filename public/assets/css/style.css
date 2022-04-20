@@ -674,3 +674,39 @@ button.star-btn:hover:before {
     position: relative;
     margin-top: -35px;
 }
+
+/* mint page */
+.mint-area {
+    z-index: 999;
+    overflow: hidden;
+}
+
+.mint-area p {
+    color: var(--neutral);
+}
+
+.mint-wrapper {
+    padding-top: 35px;
+    padding-bottom: 130px;
+}
+
+.mint-wrapper .mint-c p>a {
+    color: var(--primary-2);
+    display: inline-block;
+    border-bottom: 1.5px solid var(--primary-2);
+    font-weight: 600;
+}
+
+.vector-abs {
+    display: inline-block;
+}
+
+.vector-abs img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
