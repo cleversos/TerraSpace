@@ -22,7 +22,7 @@ let config;
 // STEP 2 Choose your configuration.
 // set this variable to either "testnet" or "mainnet"
 // if you haven't used this before use testnet to experiment so you don't lose real tokens by deleting all your access keys
-const configSetting = "mainnet";
+const configSetting = "testnet";
 
 const GAS_FOR_NFT_APPROVE = "20000000000000";
 const GAS_FOR_RESOLVE_TRANSFER = "10000000000000";
@@ -61,7 +61,7 @@ switch (configSetting) {
 
 const STAKING_CONTRACT_ID = "stakingancwallet_test.near";
 const TOKEN_CONTRACT_ID = "anctokenwallet_test.near";
-const NFT_CONTRACT_ID = "terraspace_mint_test_4.xuguangxia.testnet"; //"galactic-wuu.testnet"; "pandas.tenk.testnet";
+const NFT_CONTRACT_ID = "terraspace_mint_test_5.xuguangxia.testnet"; //"galactic-wuu.testnet"; "pandas.tenk.testnet";
 
 const Test = async () => {
   //Load Your Account
@@ -108,14 +108,14 @@ const Test = async () => {
   console.log("NFTs:", result);
 
   // STAKING
-  // result = await account.functionCall({
-  //   contractId: NFT_CONTRACT_ID,
-  //   methodName: "nft_mint",
-  //   args: {
-  //   },
-  //   gas: MAX_GAS,
-  //   attachedDeposit: "100000000000000000000000",
-  // });
+  result = await account.functionCall({
+    contractId: NFT_CONTRACT_ID,
+    methodName: "nft_mint",
+    args: {
+    },
+    gas: MAX_GAS,
+    attachedDeposit: "100000000000000000000000",
+  });
 
 };
 

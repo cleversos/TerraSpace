@@ -5,12 +5,20 @@ impl Contract {
     #[payable]
     pub fn nft_mint(
         &mut self,
-        token_id: TokenId,
-        metadata: TokenMetadata,
-        receiver_id: AccountId,
         //we add an optional parameter for perpetual royalties
         perpetual_royalties: Option<HashMap<AccountId, u32>>,
     ) {
+        let account_id = env::predecessor_account_id();
+
+        let amount = env::attached_deposit();
+        assert_eq!(
+            amount,
+            100000000000000000000000,
+            "Require minting price attached"
+        );
+
+        let token_id = (self.token_metadata_by_id.len()+1).to_string();
+
         //measure the initial storage being used on the contract
         let initial_storage_usage = env::storage_usage();
 
@@ -31,7 +39,7 @@ impl Contract {
         //specify the token struct that contains the owner ID 
         let token = Token {
             //set the owner ID equal to the receiver ID passed into the function
-            owner_id: receiver_id,
+            owner_id: account_id,
             //we set the approved account IDs to the default value (an empty map)
             approved_account_ids: Default::default(),
             //the next approval ID is set to 0
@@ -47,7 +55,20 @@ impl Contract {
         );
 
         //insert the token ID and metadata
-        self.token_metadata_by_id.insert(&token_id, &metadata);
+        self.token_metadata_by_id.insert(&token_id, &TokenMetadata{
+            title: Some("Terraspaces #".to_owned() + token_id.as_ref()),
+            description: Some("Genesis collection of 777 abstract NFTs. The First Generative Landmarks Collection on NEAR featuring Gated-via-Staking Access to Analaytical Dashboard. Tap into revenue generation via Staking-as-a-Service [SaaS] business model.".to_owned()),
+            media: Some(token_id.clone() + ".png"),
+            media_hash: None,
+            copies: None,
+            issued_at: Some(env::block_timestamp() / 1000000),
+            expires_at: None,
+            starts_at: None,
+            updated_at: None,
+            extra: None,
+            reference: Some(token_id.clone() + ".json"),
+            reference_hash: None
+        });
 
         //call the internal method for adding the token to the owner
         self.internal_add_token_to_owner(&token.owner_id, &token_id);

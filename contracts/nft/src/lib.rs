@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::collections::{LazyOption, LookupMap, UnorderedMap, UnorderedSet};
+use near_sdk::collections::{LazyOption, LookupMap, UnorderedMap, UnorderedSet, Vector};
 use near_sdk::json_types::{Base64VecU8, U128};
 use near_sdk::serde::{Deserialize, Serialize};
 use near_sdk::{
@@ -46,6 +46,9 @@ pub struct Contract {
 
     //keeps track of the metadata for the contract
     pub metadata: LazyOption<NFTContractMetadata>,
+    pub contributor_0: Vector<AccountId>,
+    pub contributor_4: Vector<AccountId>,
+    pub contributor_7: Vector<AccountId>,
 }
 
 /// Helper structure for keys of the persistent collections.
@@ -59,39 +62,20 @@ pub enum StorageKey {
     TokensPerType,
     TokensPerTypeInner { token_type_hash: CryptoHash },
     TokenTypesLocked,
+    Contributor0,
+    Contributor4,
+    Contributor7,
 }
 
 #[near_bindgen]
 impl Contract {
     /*
         initialization function (can only be called once).
-        this initializes the contract with default metadata so the
-        user doesn't have to manually type metadata.
-    */
-    #[init]
-    pub fn new_default_meta(owner_id: AccountId) -> Self {
-        //calls the other function "new: with some default metadata and the owner_id passed in 
-        Self::new(
-            owner_id,
-            NFTContractMetadata {
-                spec: "nft-1.0.0".to_string(),
-                name: "NFT Tutorial Contract".to_string(),
-                symbol: "GOTEAM".to_string(),
-                icon: None,
-                base_uri: None,
-                reference: None,
-                reference_hash: None,
-            },
-        )
-    }
-
-    /*
-        initialization function (can only be called once).
         this initializes the contract with metadata that was passed in and
         the owner_id. 
     */
     #[init]
-    pub fn new(owner_id: AccountId, metadata: NFTContractMetadata) -> Self {
+    pub fn new(owner_id: AccountId) -> Self {
         //create a variable of type Self with all the fields initialized. 
         let this = Self {
             //Storage keys are simply the prefixes used for the collections. This helps avoid data collision
@@ -104,8 +88,18 @@ impl Contract {
             owner_id,
             metadata: LazyOption::new(
                 StorageKey::NFTContractMetadata.try_to_vec().unwrap(),
-                Some(&metadata),
-            ),
+                Some(&&NFTContractMetadata {
+                    spec: "nft-1.0.0".to_string(),
+                    name: "TerraSpace Test".to_string(),
+                    symbol: "TS Test".to_string(),
+                    icon: None,
+                    base_uri: Some("https://gateway.pinata.cloud/ipfs/QmbfjrT9C5y7JLwrB5NMXRuMKGy9GfyeKVgT8Sap1GN9qc".to_owned()),
+                    reference: None,
+                    reference_hash: None,
+                })),
+            contributor_0: Vector::new(StorageKey::Contributor0.try_to_vec().unwrap()),
+            contributor_4: Vector::new(StorageKey::Contributor4.try_to_vec().unwrap()),
+            contributor_7: Vector::new(StorageKey::Contributor7.try_to_vec().unwrap()),
         };
 
         //return the Contract object
