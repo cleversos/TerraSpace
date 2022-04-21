@@ -1,136 +1,114 @@
-/*!
-Non-Fungible Token implementation with JSON serialization.
-NOTES:
-  - The maximum balance value is limited by U128 (2**128 - 1).
-  - JSON calls should pass U128 as a base-10 string. E.g. "100".
-  - The contract optimizes the inner trie structure by hashing account IDs. It will prevent some
-    abuse of deep tries. Shouldn't be an issue, once NEAR clients implement full hashing of keys.
-  - The contract tracks the change in storage before and after the call. If the storage increases,
-    the contract requires the caller of the contract to attach enough deposit to the function call
-    to cover the storage cost.
-    This is done to prevent a denial of service attack on the contract by taking all available storage.
-    If the storage decreases, the contract will issue a refund for the cost of the released storage.
-    The unused tokens from the attached deposit are also refunded, so it's safe to
-    attach more deposit than required.
-  - To prevent the deployed contract from being modified or deleted, it should not have any access
-    keys on its account.
-*/
-use near_contract_standards::non_fungible_token::metadata::{
-    NFTContractMetadata, NonFungibleTokenMetadataProvider, TokenMetadata, NFT_METADATA_SPEC,
-};
-use near_contract_standards::non_fungible_token::{Token, TokenId};
-use near_contract_standards::non_fungible_token::NonFungibleToken;
+use std::collections::HashMap;
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::collections::LazyOption;
-use near_sdk::collections::{Vector};
-
-use near_sdk::json_types::ValidAccountId;
+use near_sdk::collections::{LazyOption, LookupMap, UnorderedMap, UnorderedSet};
+use near_sdk::json_types::{Base64VecU8, U128};
+use near_sdk::serde::{Deserialize, Serialize};
 use near_sdk::{
-    env, near_bindgen, AccountId, BorshStorageKey, PanicOnDefault, Promise, PromiseOrValue,
+    env, near_bindgen, AccountId, Balance, CryptoHash, PanicOnDefault, Promise, PromiseOrValue,
 };
-use std::convert::TryInto;
 
-near_sdk::setup_alloc!();
+use crate::internal::*;
+pub use crate::metadata::*;
+pub use crate::mint::*;
+pub use crate::nft_core::*;
+pub use crate::approval::*;
+pub use crate::royalty::*;
+pub use crate::events::*;
+
+mod internal;
+mod approval; 
+mod enumeration; 
+mod metadata; 
+mod mint; 
+mod nft_core; 
+mod royalty; 
+mod events;
+
+/// This spec can be treated like a version of the standard.
+pub const NFT_METADATA_SPEC: &str = "nft-1.0.0";
+/// This is the name of the NFT standard we're using
+pub const NFT_STANDARD_NAME: &str = "nep171";
 
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Contract {
-    tokens: NonFungibleToken,
-    metadata: LazyOption<NFTContractMetadata>,
-    contributor_0: Vector<AccountId>,
-    contributor_4: Vector<AccountId>,
-    contributor_7: Vector<AccountId>,
+    //contract owner
+    pub owner_id: AccountId,
+
+    //keeps track of all the token IDs for a given account
+    pub tokens_per_owner: LookupMap<AccountId, UnorderedSet<TokenId>>,
+
+    //keeps track of the token struct for a given token ID
+    pub tokens_by_id: LookupMap<TokenId, Token>,
+
+    //keeps track of the token metadata for a given token ID
+    pub token_metadata_by_id: UnorderedMap<TokenId, TokenMetadata>,
+
+    //keeps track of the metadata for the contract
+    pub metadata: LazyOption<NFTContractMetadata>,
 }
 
-const DATA_IMAGE_SVG_NEAR_ICON: &str = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 288 288'%3E%3Cg id='l' data-name='l'%3E%3Cpath d='M187.58,79.81l-30.1,44.69a3.2,3.2,0,0,0,4.75,4.2L191.86,103a1.2,1.2,0,0,1,2,.91v80.46a1.2,1.2,0,0,1-2.12.77L102.18,77.93A15.35,15.35,0,0,0,90.47,72.5H87.34A15.34,15.34,0,0,0,72,87.84V201.16A15.34,15.34,0,0,0,87.34,216.5h0a15.35,15.35,0,0,0,13.08-7.31l30.1-44.69a3.2,3.2,0,0,0-4.75-4.2L96.14,186a1.2,1.2,0,0,1-2-.91V104.61a1.2,1.2,0,0,1,2.12-.77l89.55,107.23a15.35,15.35,0,0,0,11.71,5.43h3.13A15.34,15.34,0,0,0,216,201.16V87.84A15.34,15.34,0,0,0,200.66,72.5h0A15.35,15.35,0,0,0,187.58,79.81Z'/%3E%3C/g%3E%3C/svg%3E";
-
-#[derive(BorshSerialize, BorshStorageKey)]
-enum StorageKey {
-    NonFungibleToken,
-    Metadata,
-    TokenMetadata,
-    Enumeration,
-    Approval,
-    Contributor0,
-    Contributor4,
-    Contributor7,
+/// Helper structure for keys of the persistent collections.
+#[derive(BorshSerialize)]
+pub enum StorageKey {
+    TokensPerOwner,
+    TokenPerOwnerInner { account_id_hash: CryptoHash },
+    TokensById,
+    TokenMetadataById,
+    NFTContractMetadata,
+    TokensPerType,
+    TokensPerTypeInner { token_type_hash: CryptoHash },
+    TokenTypesLocked,
 }
 
 #[near_bindgen]
 impl Contract {
-    /// Initializes the contract owned by `owner_id` with
-    /// default metadata (for example purposes only).
+    /*
+        initialization function (can only be called once).
+        this initializes the contract with default metadata so the
+        user doesn't have to manually type metadata.
+    */
     #[init]
-    pub fn new(owner_id: ValidAccountId) -> Self {
-        assert!(!env::state_exists(), "Already initialized");
-        Self {
-            tokens: NonFungibleToken::new(
-                StorageKey::NonFungibleToken,
-                owner_id,
-                Some(StorageKey::TokenMetadata),
-                Some(StorageKey::Enumeration),
-                Some(StorageKey::Approval),
-            ),
-            metadata: LazyOption::new(StorageKey::Metadata, Some(&NFTContractMetadata {
-                spec: NFT_METADATA_SPEC.to_string(),
-                name: "TerraSpace Test".to_string(),
-                symbol: "TS Test".to_string(),
-                icon: Some(DATA_IMAGE_SVG_NEAR_ICON.to_string()),
-                base_uri: Some("https://gateway.pinata.cloud/ipfs/QmbfjrT9C5y7JLwrB5NMXRuMKGy9GfyeKVgT8Sap1GN9qc".to_owned()),
+    pub fn new_default_meta(owner_id: AccountId) -> Self {
+        //calls the other function "new: with some default metadata and the owner_id passed in 
+        Self::new(
+            owner_id,
+            NFTContractMetadata {
+                spec: "nft-1.0.0".to_string(),
+                name: "NFT Tutorial Contract".to_string(),
+                symbol: "GOTEAM".to_string(),
+                icon: None,
+                base_uri: None,
                 reference: None,
                 reference_hash: None,
-            })),
-            contributor_0: Vector::new(StorageKey::Contributor0),
-            contributor_4: Vector::new(StorageKey::Contributor4),
-            contributor_7: Vector::new(StorageKey::Contributor7),
-        }
+            },
+        )
     }
 
-    /// Mint a new token with ID=`token_id` belonging to `receiver_id`.
-    ///
-    /// Since this example implements metadata, it also requires per-token metadata to be provided
-    /// in this call. `self.tokens.mint` will also require it to be Some, since
-    /// `StorageKey::TokenMetadata` was provided at initialization.
-    ///
-    /// `self.tokens.mint` will enforce `predecessor_account_id` to equal the `owner_id` given in
-    /// initialization call to `new`.
-    #[payable]
-    pub fn nft_mint(
-        &mut self,
-    ) -> Token {
-        let account_id = env::predecessor_account_id();
+    /*
+        initialization function (can only be called once).
+        this initializes the contract with metadata that was passed in and
+        the owner_id. 
+    */
+    #[init]
+    pub fn new(owner_id: AccountId, metadata: NFTContractMetadata) -> Self {
+        //create a variable of type Self with all the fields initialized. 
+        let this = Self {
+            //Storage keys are simply the prefixes used for the collections. This helps avoid data collision
+            tokens_per_owner: LookupMap::new(StorageKey::TokensPerOwner.try_to_vec().unwrap()),
+            tokens_by_id: LookupMap::new(StorageKey::TokensById.try_to_vec().unwrap()),
+            token_metadata_by_id: UnorderedMap::new(
+                StorageKey::TokenMetadataById.try_to_vec().unwrap(),
+            ),
+            //set the owner_id field equal to the passed in owner_id. 
+            owner_id,
+            metadata: LazyOption::new(
+                StorageKey::NFTContractMetadata.try_to_vec().unwrap(),
+                Some(&metadata),
+            ),
+        };
 
-        let amount = env::attached_deposit();
-        assert_eq!(
-            amount,
-            100000000000000000000000,
-            "Require minting price attached"
-        );
-
-        self.tokens.mint((self.tokens.owner_by_id.len()+1).to_string(), account_id.try_into().unwrap(), Some(TokenMetadata{
-            title: Some("Terraspaces #".to_owned() + &(self.tokens.owner_by_id.len()+1).to_string()),
-            description: Some("Genesis collection of 777 abstract NFTs. The First Generative Landmarks Collection on NEAR featuring Gated-via-Staking Access to Analaytical Dashboard. Tap into revenue generation via Staking-as-a-Service [SaaS] business model.".to_owned()),
-            media: Some((self.tokens.owner_by_id.len()+1).to_string() + ".png"),
-            media_hash: None,
-            copies: None,
-            issued_at: Some((env::block_timestamp() / 1000000).to_string()),
-            expires_at: None,
-            starts_at: None,
-            updated_at: None,
-            extra: None,
-            reference: Some((self.tokens.owner_by_id.len()+1).to_string() + ".json"),
-            reference_hash: None
-        }))
-    }
-}
-
-near_contract_standards::impl_non_fungible_token_core!(Contract, tokens);
-near_contract_standards::impl_non_fungible_token_approval!(Contract, tokens);
-near_contract_standards::impl_non_fungible_token_enumeration!(Contract, tokens);
-
-#[near_bindgen]
-impl NonFungibleTokenMetadataProvider for Contract {
-    fn nft_metadata(&self) -> NFTContractMetadata {
-        self.metadata.get().unwrap()
+        //return the Contract object
+        this
     }
 }
