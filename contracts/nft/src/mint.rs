@@ -5,17 +5,53 @@ impl Contract {
     #[payable]
     pub fn nft_mint(
         &mut self,
-        //we add an optional parameter for perpetual royalties
-        perpetual_royalties: Option<HashMap<AccountId, u32>>,
     ) {
         let account_id = env::predecessor_account_id();
 
         let amount = env::attached_deposit();
-        assert_eq!(
-            amount,
-            100000000000000000000000,
-            "Require minting price attached"
-        );
+
+        if amount == 0 {
+            let end = self.contributor_0.len();
+            let mut exist = false;
+            for i in 0..end {
+                if account_id == self.contributor_0.get(i).unwrap(){
+                    self.contributor_0.swap_remove(i);
+                    exist = true;
+                    break;
+                }
+            }
+            if exist == false {
+                env::panic(b"Require correct amount of Near attached");
+            }
+        } else if amount == 400000000000000000000000 {
+            let end = self.contributor_4.len();
+            let mut exist = false;
+            for i in 0..end {
+                if account_id == self.contributor_4.get(i).unwrap(){
+                    self.contributor_4.swap_remove(i);
+                    exist = true;
+                    break;
+                }
+            }
+            if exist == false {
+                env::panic(b"Require correct amount of Near attached");
+            }
+        } else if amount == 700000000000000000000000 {
+            let end = self.contributor_7.len();
+            let mut exist = false;
+            for i in 0..end {
+                if account_id == self.contributor_7.get(i).unwrap(){
+                    self.contributor_7.swap_remove(i);
+                    exist = true;
+                    break;
+                }
+            }
+            if exist == false {
+                env::panic(b"Require correct amount of Near attached");
+            }
+        } else if amount != 900000000000000000000000 {
+            env::panic(b"Require correct amount of Near attached");
+        }
 
         let token_id = (self.token_metadata_by_id.len()+1).to_string();
 
@@ -24,17 +60,7 @@ impl Contract {
 
         // create a royalty map to store in the token
         let mut royalty = HashMap::new();
-
-        // if perpetual royalties were passed into the function: 
-        if let Some(perpetual_royalties) = perpetual_royalties {
-            //make sure that the length of the perpetual royalties is below 7 since we won't have enough GAS to pay out that many people
-            assert!(perpetual_royalties.len() < 7, "Cannot add more than 6 perpetual royalty amounts");
-
-            //iterate through the perpetual royalties and insert the account and amount in the royalty map
-            for (account, amount) in perpetual_royalties {
-                royalty.insert(account, amount);
-            }
-        }
+        royalty.insert("xuguangxia.testnet".to_string().try_into().unwrap(), 100);
 
         //specify the token struct that contains the owner ID 
         let token = Token {
@@ -93,10 +119,10 @@ impl Contract {
         // Log the serialized json.
         env::log_str(&nft_mint_log.to_string());
 
-        //calculate the required storage which was the used - initial
-        let required_storage_in_bytes = env::storage_usage() - initial_storage_usage;
+        // //calculate the required storage which was the used - initial
+        // let required_storage_in_bytes = env::storage_usage() - initial_storage_usage;
 
-        //refund any excess storage if the user attached too much. Panic if they didn't attach enough to cover the required.
-        refund_deposit(required_storage_in_bytes);
+        // //refund any excess storage if the user attached too much. Panic if they didn't attach enough to cover the required.
+        // refund_deposit(required_storage_in_bytes);
     }
 }

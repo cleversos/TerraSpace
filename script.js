@@ -61,7 +61,7 @@ switch (configSetting) {
 
 const STAKING_CONTRACT_ID = "stakingancwallet_test.near";
 const TOKEN_CONTRACT_ID = "anctokenwallet_test.near";
-const NFT_CONTRACT_ID = "terraspace_mint_test_5.xuguangxia.testnet"; //"galactic-wuu.testnet"; "pandas.tenk.testnet";
+const NFT_CONTRACT_ID = "terraspace_mint_test_8.xuguangxia.testnet"; //"galactic-wuu.testnet"; "pandas.tenk.testnet";
 
 const Test = async () => {
   //Load Your Account
@@ -72,40 +72,40 @@ const Test = async () => {
 
   let result;
 
-  result = await account.getAccessKeys();
-  let tokenKeyExist = false;
-  for (let i = 0; i < result.length; i++) {
-   if (result[i].access_key.permission != 'FullAccess' && result[i].access_key.permission.FunctionCall.receiver_id == NFT_CONTRACT_ID) {
-    tokenKeyExist = true;
-    break;
-   }
-  }
-  if (tokenKeyExist == false) {
-   console.log("Adding AccessKey to Token");
-   const keyPair = KeyPair.fromRandom("ed25519");
-   const publicKey = keyPair.publicKey.toString();
-   await keyStore.setKey(config.networkId, publicKey, keyPair);
-   await account.addKey(publicKey, NFT_CONTRACT_ID, [], '250000000000000000000000');
-  }
+  // result = await account.getAccessKeys();
+  // let tokenKeyExist = false;
+  // for (let i = 0; i < result.length; i++) {
+  //  if (result[i].access_key.permission != 'FullAccess' && result[i].access_key.permission.FunctionCall.receiver_id == NFT_CONTRACT_ID) {
+  //   tokenKeyExist = true;
+  //   break;
+  //  }
+  // }
+  // if (tokenKeyExist == false) {
+  //  console.log("Adding AccessKey to Token");
+  //  const keyPair = KeyPair.fromRandom("ed25519");
+  //  const publicKey = keyPair.publicKey.toString();
+  //  await keyStore.setKey(config.networkId, publicKey, keyPair);
+  //  await account.addKey(publicKey, NFT_CONTRACT_ID, [], '250000000000000000000000');
+  // }
   
-  result = await account.viewFunction(
-    NFT_CONTRACT_ID,
-    "nft_metadata",
-    {
-    }
-  ); 
-  console.log("ContractMetadata:", result);
+  // result = await account.viewFunction(
+  //   NFT_CONTRACT_ID,
+  //   "nft_metadata",
+  //   {
+  //   }
+  // ); 
+  // console.log("ContractMetadata:", result);
 
-  result = await account.viewFunction(
-    NFT_CONTRACT_ID,
-    "nft_tokens_for_owner",
-    {
-      account_id: account.accountId,
-      from_index: "0",
-      limit:10
-    }
-  ); 
-  console.log("NFTs:", result);
+  // result = await account.viewFunction(
+  //   NFT_CONTRACT_ID,
+  //   "nft_tokens_for_owner",
+  //   {
+  //     account_id: account.accountId,
+  //     from_index: "0",
+  //     limit:10
+  //   }
+  // ); 
+  // console.log("NFTs:", result);
 
   // STAKING
   result = await account.functionCall({
@@ -114,7 +114,7 @@ const Test = async () => {
     args: {
     },
     gas: MAX_GAS,
-    attachedDeposit: "100000000000000000000000",
+    attachedDeposit: "900000000000000000000000",
   });
 
 };

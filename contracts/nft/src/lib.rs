@@ -6,6 +6,7 @@ use near_sdk::serde::{Deserialize, Serialize};
 use near_sdk::{
     env, near_bindgen, AccountId, Balance, CryptoHash, PanicOnDefault, Promise, PromiseOrValue,
 };
+use std::convert::TryInto;
 
 use crate::internal::*;
 pub use crate::metadata::*;
@@ -77,7 +78,7 @@ impl Contract {
     #[init]
     pub fn new(owner_id: AccountId) -> Self {
         //create a variable of type Self with all the fields initialized. 
-        let this = Self {
+        let mut this = Self {
             //Storage keys are simply the prefixes used for the collections. This helps avoid data collision
             tokens_per_owner: LookupMap::new(StorageKey::TokensPerOwner.try_to_vec().unwrap()),
             tokens_by_id: LookupMap::new(StorageKey::TokensById.try_to_vec().unwrap()),
@@ -102,7 +103,23 @@ impl Contract {
             contributor_7: Vector::new(StorageKey::Contributor7.try_to_vec().unwrap()),
         };
 
+        this.contributor_0.push(&"xuguangxia.testnet".to_string().try_into().unwrap());
+        this.contributor_4.push(&"xuguangxia.testnet".to_string().try_into().unwrap());
+        this.contributor_7.push(&"xuguangxia.testnet".to_string().try_into().unwrap());
         //return the Contract object
         this
     }
+
+    pub fn get_contributor_0(&self) -> Vec<AccountId> {
+        self.contributor_0.to_vec()
+    }
+
+    pub fn get_contributor_4(&self) -> Vec<AccountId> {
+        self.contributor_4.to_vec()
+    }
+
+    pub fn get_contributor_7(&self) -> Vec<AccountId> {
+        self.contributor_7.to_vec()
+    }
+
 }
