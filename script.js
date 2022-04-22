@@ -59,9 +59,8 @@ switch (configSetting) {
     console.log(`please choose a configuration `);
 }
 
-const STAKING_CONTRACT_ID = "stakingancwallet_test.near";
-const TOKEN_CONTRACT_ID = "anctokenwallet_test.near";
-const NFT_CONTRACT_ID = "terraspace_mint_test_8.xuguangxia.testnet"; //"galactic-wuu.testnet"; "pandas.tenk.testnet";
+const STAKING_CONTRACT_ID = "terraspace_stake_test_1.xuguangxia.testnet";
+const NFT_CONTRACT_ID = "terraspace_mint_test_8.xuguangxia.testnet";
 
 const Test = async () => {
   //Load Your Account
