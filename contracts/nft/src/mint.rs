@@ -6,6 +6,8 @@ impl Contract {
     pub fn nft_mint(
         &mut self,
     ) {
+        assert!(self.token_metadata_by_id.len() <= 777, "Minting ended");
+
         let account_id = env::predecessor_account_id();
 
         let amount = env::attached_deposit();

@@ -45,6 +45,10 @@ impl NonFungibleTokenApprovalsReceiver for Contract {
             &signer_id,
             "owner_id should be signer_id"
         );
+        assert!(
+            !self.nft_contract_ids.contains(&nft_contract_id),
+            "nft_contract not registered"
+        );
 
         // // enforce signer's storage is enough to cover + 1 more sale
 
@@ -67,7 +71,6 @@ impl NonFungibleTokenApprovalsReceiver for Contract {
                 approval_id,
                 token_id: token_id.clone(),
                 created_at: env::block_timestamp() / 1000000,
-                claimed_at: env::block_timestamp() / 1000000,
             },
         );
 
@@ -91,7 +94,7 @@ impl NonFungibleTokenApprovalsReceiver for Contract {
             current_user.clone(),
             token_id,
             approval_id,
-            "deposit to market".to_string(),
+            "deposit to staking contract".to_string(),
             &nft_contract_id,
             1,
             GAS_FOR_NFT_TRANSFER,

@@ -53,22 +53,4 @@ impl Contract {
     pub fn get_staking_information(&self, tokenId: TokenId) -> Option<StakeInfo> {
         self.staking_informations.get(&tokenId)
     }
-
-    pub fn get_claim_amount(&self, account_id: AccountId) -> U128 {
-        let nft_staked_arrays =
-            self.get_staking_informations_by_owner_id(account_id, U64(0), 10000);
-        let mut claimed: u128 = 0;
-        let now = env::block_timestamp() / 1000000;
-        let now_dt: DateTime<Utc> =
-            DateTime::from_utc(NaiveDateTime::from_timestamp((now / 1000) as i64, 0), Utc);
-        for stk in nft_staked_arrays {
-            let claimed_at = stk.claimed_at as i64;
-            let claimed_at_date = NaiveDateTime::from_timestamp((claimed_at / 1000) as i64, 0);
-            let dt: DateTime<Utc> = DateTime::from_utc(claimed_at_date, Utc);
-            let duration = now_dt - dt;
-            claimed += u128::try_from(duration.num_hours()*10/24).ok().unwrap().checked_mul(1000000000000000000000000).unwrap();
-        }
-
-        U128::from(claimed)
-    }
 }

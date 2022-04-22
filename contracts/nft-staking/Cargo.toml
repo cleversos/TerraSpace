@@ -1,5 +1,5 @@
 [package]
-name = "vexedapes_staking"
+name = "terraspace_staking"
 version = "0.1.0"
 authors = ["CleverSos"]
 edition = "2018"

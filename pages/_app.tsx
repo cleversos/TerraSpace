@@ -39,12 +39,16 @@ function MyApp({ Component, pageProps }: AppProps) {
                                 <a className="nav-link active" aria-current="page">Overview</a>
                               </Link>
                             </li>
-                            {/* <li className="nav-item">
-                                <a className="nav-link" href="staking.html">Staking</a>
+                            <li className="nav-item">
+                              <Link href="/stake">
+                                <a className="nav-link">Stake</a>
+                              </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="dashboard.html">Dashbaord</a>
-                            </li> */}
+                              <Link href="/dashboard">
+                                <a className="nav-link">Dashboard</a>
+                              </Link>
+                            </li>
                             <li className="nav-item">
                               <Link href="/mint">
                                 <a className="nav-link">Mint</a>

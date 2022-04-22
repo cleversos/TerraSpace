@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:contracts": "cd contracts/nft && ./build.sh && cd ../.."
+    "build:contracts": "cd contracts/nft && ./build.sh && cd ../.. && cd contracts/nft-staking && ./build.sh && cd ../.."
   },
   "dependencies": {
     "near-api-js": "^0.44.2",

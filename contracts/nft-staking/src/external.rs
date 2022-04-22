@@ -17,10 +17,4 @@ trait ExtContract {
         approval_id: u64,
         memo: String,
     );
-    fn ft_transfer(
-        &mut self,
-        receiver_id: AccountId,
-        amount: U128,
-        memo: Option<String>
-    );
 }

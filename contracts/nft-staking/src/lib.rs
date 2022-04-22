@@ -8,7 +8,7 @@ use near_sdk::{
 };
 use std::cmp::min;
 use std::collections::HashMap;
-
+use std::convert::TryInto;
 use crate::external::*;
 use crate::internal::*;
 use crate::staking::*;
@@ -36,6 +36,7 @@ const STORAGE_PER_SALE: u128 = 1000 * STORAGE_PRICE_PER_BYTE;
 static DELIMETER: &str = "||";
 
 pub type TokenId = String;
+pub type ContractAndTokenId = String;
 
 // TODO: Capital U128
 pub type Payout = HashMap<AccountId, U128>;
@@ -50,10 +51,9 @@ pub struct StorageBalanceBounds {
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Contract {
     pub owner_id: AccountId,
-    pub nft_contract_id: AccountId,
-    pub staking_informations: UnorderedMap<TokenId, StakeInfo>,
-    pub by_owner_id: LookupMap<AccountId, UnorderedSet<TokenId>>,
-    pub vac_token_id: AccountId,
+    pub nft_contract_ids: UnorderedSet<AccountId>,
+    pub staking_informations: UnorderedMap<ContractAndTokenId, StakeInfo>,
+    pub by_owner_id: LookupMap<AccountId, UnorderedSet<ContractAndTokenId>>,
     pub storage_deposits: LookupMap<AccountId, Balance>,
 }
 
@@ -63,8 +63,7 @@ pub enum StorageKey {
     StakingInformation,
     ByOwnerId,
     ByOwnerIdInner { account_id_hash: CryptoHash },
-    NftContractId,
-    VacTokenId,
+    NftContractIds,
     StorageDeposits,
 }
 
@@ -74,19 +73,31 @@ impl Contract {
     pub fn new(
         owner_id: ValidAccountId
     ) -> Self {
-        let this = Self {
+        let mut this = Self {
             owner_id: owner_id.into(),
-            nft_contract_id: String::from("banc.neartopia.near"),
+            nft_contract_ids: UnorderedSet::new(StorageKey::NftContractIds),
             // nft_contract_id: String::new(StorageKey::NftContractId),
             staking_informations: UnorderedMap::new(StorageKey::StakingInformation),
-            vac_token_id: String::from("anctokenwallet_test.near"),
             by_owner_id: LookupMap::new(StorageKey::ByOwnerId),
             storage_deposits: LookupMap::new(StorageKey::StorageDeposits),
         };
+        this.nft_contract_ids.insert(&"terraspace_mint_test_8.xuguangxia.testnet".to_string().try_into().unwrap());
         this
     }
 
-    /// TODO remove token (should check if sales can complete even if owner stops supporting token type)
+    pub fn get_nft_contract_ids(&self) -> Vec<AccountId> {
+        self.nft_contract_ids.to_vec()
+    }
+
+    #[payable]
+    pub fn append_nft_contract_id(&mut self, nft_contract_id: AccountId){
+        self.nft_contract_ids.insert(&nft_contract_id);
+    }
+
+    #[payable]
+    pub fn remove_nft_contract_id(&mut self, nft_contract_id: AccountId){
+        self.nft_contract_ids.remove(&nft_contract_id);
+    }
 
     #[payable]
     pub fn storage_deposit(&mut self, account_id: Option<ValidAccountId>) {
