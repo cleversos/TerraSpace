@@ -64,12 +64,15 @@ impl NonFungibleTokenApprovalsReceiver for Contract {
         let StakingArgs { staking_status } =
             near_sdk::serde_json::from_str(&msg).expect("Not valid StakingArgs");
 
+        let contract_and_token_id = format!("{}{}{}", nft_contract_id, DELIMETER, token_id);
+
         self.staking_informations.insert(
-            &token_id,
+            &contract_and_token_id,
             &StakeInfo {
                 owner_id: owner_id.clone().into(),
                 approval_id,
                 token_id: token_id.clone(),
+                nft_contract_id: nft_contract_id.clone(),
                 created_at: env::block_timestamp() / 1000000,
             },
         );
@@ -86,7 +89,7 @@ impl NonFungibleTokenApprovalsReceiver for Contract {
             )
         });
 
-        by_owner_id.insert(&token_id);
+        by_owner_id.insert(&contract_and_token_id);
         self.by_owner_id.insert(owner_id.as_ref(), &by_owner_id);
 
         let current_user = near_sdk::env::current_account_id();

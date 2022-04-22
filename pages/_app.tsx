@@ -9,9 +9,11 @@ import '../public/assets/css/style.css'
 import type { AppProps } from 'next/app'
 import Script from 'next/script'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
+    const router = useRouter()
+    return (
     <>
       <header id="header" className="hedaer-abs">
         <div className="header-area">
@@ -36,22 +38,22 @@ function MyApp({ Component, pageProps }: AppProps) {
                         <ul className="navbar-nav">
                             <li className="nav-item">
                               <Link href="/">
-                                <a className="nav-link active" aria-current="page">Overview</a>
+                                <a className={`nav-link ${router.pathname == "/" ? "active" : ""}`}>Overview</a>
                               </Link>
                             </li>
                             <li className="nav-item">
                               <Link href="/stake">
-                                <a className="nav-link">Stake</a>
+                                <a className={`nav-link ${router.pathname == "/stake" ? "active" : ""}`}>Stake</a>
                               </Link>
                             </li>
                             <li className="nav-item">
                               <Link href="/dashboard">
-                                <a className="nav-link">Dashboard</a>
+                                <a className={`nav-link ${router.pathname == "/dashboard" ? "active" : ""}`}>Dashboard</a>
                               </Link>
                             </li>
                             <li className="nav-item">
                               <Link href="/mint">
-                                <a className="nav-link">Mint</a>
+                                <a className={`nav-link ${router.pathname == "/mint" ? "active" : ""}`}>Mint</a>
                               </Link>
                             </li>
                         </ul>

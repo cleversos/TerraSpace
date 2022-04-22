@@ -50,7 +50,8 @@ impl Contract {
         tmp
     }
 
-    pub fn get_staking_information(&self, tokenId: TokenId) -> Option<StakeInfo> {
-        self.staking_informations.get(&tokenId)
+    pub fn get_staking_information(&self, nft_contract_id: AccountId, token_id: TokenId) -> Option<StakeInfo> {
+        let contract_and_token_id = format!("{}{}{}", nft_contract_id, DELIMETER, token_id);
+        self.staking_informations.get(&contract_and_token_id)
     }
 }
