@@ -37,10 +37,10 @@ const Mint: NextPage = () => {
                                     </h5>
                                 </div>
                                 <div className="d-inline-block pt-45">
-                                    <a href="javascript:void(0)" className="cmn-btn redius-12 f-18">
+                                    <button className="cmn-btn redius-12 f-18">
                                         <span>Connect Wallet</span>
                                         <img src="assets/img/icons/Wallet1.svg" alt="wallet"/>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
 

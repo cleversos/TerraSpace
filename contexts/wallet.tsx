@@ -64,7 +64,6 @@ const WalletProvider = (props: any) => {
           const near = await connect(config);
           const wallet = new WalletConnection(near, null);
           setNear(near);
-          console.log(wallet, "wallet");
           setWallet(wallet);
           if(wallet && wallet.isSignedIn()){
             let accountState = await wallet.account().state();

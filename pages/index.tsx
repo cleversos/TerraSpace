@@ -40,10 +40,10 @@ const Home: NextPage = () => {
                             </div>
 
                             <div className="get-button d-inline-block">
-                                <a href="javascript:void(0)" className="cmn-btn f-18 redius-12">
+                                <button className="cmn-btn f-18 redius-12">
                                     <span> Get Started</span>
                                     <img src="assets/img/icons/Explore.svg" alt="get"/>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

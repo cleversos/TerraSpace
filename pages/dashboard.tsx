@@ -81,10 +81,10 @@ const Mint: NextPage = () => {
 
                             </div>
                             <div className="watch-btn">
-                                <a href="javascript:void(0)" className="cmn-btn f-18 redius-12">
+                                <button className="cmn-btn f-18 redius-12">
                                     <span> Get Started</span>
                                     <img src="assets/img/icons/plus.svg" alt="plus"/>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1015,8 +1015,8 @@ const Mint: NextPage = () => {
                                 <defs>
                                     <linearGradient id="paint0_linear_249_1486" x1="597.442" y1="54.0883" x2="597.442"
                                         y2="241.754" gradientUnits="userSpaceOnUse">
-                                        <stop stop-color="#7A48CF" stop-opacity="0.4" />
-                                        <stop offset="1" stop-color="#7A48CF" stop-opacity="0" />
+                                        <stop stopColor="#7A48CF" stopOpacity="0.4" />
+                                        <stop offset="1" stopColor="#7A48CF" stopOpacity="0" />
                                     </linearGradient>
                                 </defs>
                             </svg>

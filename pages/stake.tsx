@@ -113,9 +113,9 @@ const Mint: NextPage = () => {
                         <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div className="owned-r">
                                 <div className="stake-btn stake-btn-abs d-inline-block ">
-                                    <a href="javascript:void(0)" className="cmn-btn-1 f-18 redius-12">
+                                    <button className="cmn-btn-1 f-18 redius-12">
                                         <span> Stake All </span>
-                                    </a>
+                                    </button>
                                 </div>
 
                                 <div className="navs-title ">
@@ -160,7 +160,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Stake</span>
                                                     </a>
                                                 </div>
@@ -189,7 +189,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Stake </span>
                                                     </a>
                                                 </div>
@@ -217,7 +217,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Stake</span>
                                                     </a>
                                                 </div>
@@ -245,7 +245,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Stake</span>
                                                     </a>
                                                 </div>
@@ -273,7 +273,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Stake </span>
                                                     </a>
                                                 </div>
@@ -301,7 +301,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Stake</span>
                                                     </a>
                                                 </div>
@@ -330,7 +330,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Stake</span>
                                                     </a>
                                                 </div>
@@ -358,7 +358,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Stake</span>
                                                     </a>
                                                 </div>
@@ -371,7 +371,7 @@ const Mint: NextPage = () => {
                         <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div className="owned-r">
                                 <div className="stake-btn stake-btn-abs d-inline-block ">
-                                    <a href="javascript:void(0)" className="cmn-btn-1 f-18 redius-12">
+                                    <a href="" className="cmn-btn-1 f-18 redius-12">
                                         <span> Unstake All</span>
                                     </a>
                                 </div>
@@ -418,7 +418,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Unstake</span>
                                                     </a>
                                                 </div>
@@ -448,7 +448,7 @@ const Mint: NextPage = () => {
                                                 </div>
 
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Unstake</span>
                                                     </a>
                                                 </div>
@@ -476,7 +476,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span>Unstake</span>
                                                     </a>
                                                 </div>
@@ -504,7 +504,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Unstake</span>
                                                     </a>
                                                 </div>
@@ -532,7 +532,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span>Unstake</span>
                                                     </a>
                                                 </div>
@@ -560,7 +560,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span>Unstake</span>
                                                     </a>
                                                 </div>
@@ -588,7 +588,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Unstake</span>
                                                     </a>
                                                 </div>
@@ -616,7 +616,7 @@ const Mint: NextPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className="stake-btn mt-20">
-                                                    <a href="javascript:void(0)" className="cmn-btn-1 h-48 f-18 redius-12">
+                                                    <a href="" className="cmn-btn-1 h-48 f-18 redius-12">
                                                         <span> Unstake</span>
                                                     </a>
                                                 </div>
