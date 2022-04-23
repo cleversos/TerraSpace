@@ -14,10 +14,6 @@ const Header: NextPage = () => {
             signIn();
         }
     }
-    useEffect(() => {
-        console.log(wallet, "==> wallet")
-        console.log(near, "==> near")
-    },[])
   return (
     <header id="header" className="hedaer-abs">
     <div className="header-area">

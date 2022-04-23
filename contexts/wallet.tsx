@@ -37,15 +37,6 @@ const WalletProvider = (props: any) => {
     const [nftList, setNftList] = useState([])
     const [nearBalance, setNearBalance] = useState<String>("")
     const {keyStore} = props;
-    const config: ConnectConfig = {
-        networkId: "testnet",
-        keyStore, // optional if not signing transactions
-        nodeUrl: "https://rpc.testnet.near.org",
-        walletUrl: "https://wallet.testnet.near.org",
-        helperUrl: "https://helper.testnet.near.org",
-        // explorerUrl: "https://explorer.testnet.near.org",
-        headers: {}
-    };
        
     const signIn = () => {
       if(wallet)
@@ -61,6 +52,15 @@ const WalletProvider = (props: any) => {
     const connectToNear = useCallback(async () => {
       try {
         if(keyStore){
+            const config: ConnectConfig = {
+              networkId: "testnet",
+              keyStore, // optional if not signing transactions
+              nodeUrl: "https://rpc.testnet.near.org",
+              walletUrl: "https://wallet.testnet.near.org",
+              helperUrl: "https://helper.testnet.near.org",
+              // explorerUrl: "https://explorer.testnet.near.org",
+              headers: {}
+          };
           const near = await connect(config);
           const wallet = new WalletConnection(near, null);
           setNear(near);
@@ -93,7 +93,7 @@ const WalletProvider = (props: any) => {
       } catch (error) {
         console.log(error, "error")
       }
-    }, [config, keyStore])
+    }, [keyStore])
   
     const fetchNFTs = async (wallet: WalletConnectionProps) => {
       if(wallet && wallet.isSignedIn()){
@@ -123,11 +123,8 @@ const WalletProvider = (props: any) => {
     }
 
     useEffect(() => {
-    }, [connectToNear])
-  
-    useEffect(() => {
       connectToNear()
-    }, [])
+    }, [keyStore])
   
     return (
       <WalletContext.Provider
