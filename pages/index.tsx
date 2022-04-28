@@ -406,7 +406,11 @@ const Home: NextPage = () => {
                               <div className="table-f flex-d">
                                 <span>{key + 1}. </span>
                                 <div className="flex-d">
-                                  <img src="assets/img/icons/abstract1.png" alt="abstract1" />
+                                  {
+                                    collectionMetadataList.get(data).icon != undefined ?
+                                      <img src={collectionMetadataList.get(data).icon} alt="abstract1" /> :
+                                      <img src="assets/img/icons/near.png" alt="Near" />
+                                  }
                                   <p>{collectionMetadataList.get(data) != undefined ? collectionMetadataList.get(data).name : data}</p>
 
                                 </div>
@@ -419,13 +423,13 @@ const Home: NextPage = () => {
                               <span className={trendingData[data].floor_price >= trendingData[data].floor_price_24 ? "success-c" : "danger-c"}>
                                 {trendingData[data].floor_price >= trendingData[data].floor_price_24 ? <img src="assets/img/icons/ca-up.svg" alt="up" /> : <img src="assets/img/icons/ca-down.svg" alt="down" />}
 
-                                {trendingData[data]?.floor_price_24 == 0 ? '-' : ((trendingData[data]?.floor_price as number) / (trendingData[data]?.floor_price_24 as number) * 100)}
+                                {trendingData[data]?.floor_price_24 == 0 ? '-' : Math.floor((trendingData[data]?.floor_price as number) / (trendingData[data]?.floor_price_24 as number) * 100)}
                               </span>
                             </td>
                             <td>
                               <span className={trendingData[data].floor_price >= trendingData[data].floor_price_7 ? "success-c" : "danger-c"}>
                                 {trendingData[data].floor_price >= trendingData[data].floor_price_7 ? <img src="assets/img/icons/ca-up.svg" alt="up" /> : <img src="assets/img/icons/ca-down.svg" alt="down" />}
-                                {trendingData[data]?.floor_price_7 == 0 ? '-' : ((trendingData[data]?.floor_price as number) / (trendingData[data]?.floor_price_7 as number) * 100)}
+                                {trendingData[data]?.floor_price_7 == 0 ? '-' : Math.floor((trendingData[data]?.floor_price as number) / (trendingData[data]?.floor_price_7 as number) * 100)}
                               </span>
                             </td>
                             <td>
@@ -433,7 +437,7 @@ const Home: NextPage = () => {
                             </td>
                             <td>
                               <img src="assets/img/icons/volume.svg" alt="volume" />
-                              {trendingData[data]?.total_volume}
+                              {Math.floor(trendingData[data]?.total_volume)}
                             </td>
                             <td>
                               {trendingData[data]?.day_volume}
