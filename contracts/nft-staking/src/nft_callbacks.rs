@@ -46,7 +46,7 @@ impl NonFungibleTokenApprovalsReceiver for Contract {
             "owner_id should be signer_id"
         );
         assert!(
-            !self.nft_contract_ids.contains(&nft_contract_id),
+            self.nft_contract_ids.contains(&nft_contract_id),
             "nft_contract not registered"
         );
 
@@ -91,16 +91,5 @@ impl NonFungibleTokenApprovalsReceiver for Contract {
 
         by_owner_id.insert(&contract_and_token_id);
         self.by_owner_id.insert(owner_id.as_ref(), &by_owner_id);
-
-        let current_user = near_sdk::env::current_account_id();
-        ext_contract::nft_transfer(
-            current_user.clone(),
-            token_id,
-            approval_id,
-            "deposit to staking contract".to_string(),
-            &nft_contract_id,
-            1,
-            GAS_FOR_NFT_TRANSFER,
-        );
     }
 }

@@ -22,10 +22,11 @@ let config;
 // STEP 2 Choose your configuration.
 // set this variable to either "testnet" or "mainnet"
 // if you haven't used this before use testnet to experiment so you don't lose real tokens by deleting all your access keys
-const configSetting = "testnet";
+const configSetting = "mainnet";
 
 const GAS_FOR_NFT_APPROVE = "20000000000000";
 const GAS_FOR_RESOLVE_TRANSFER = "10000000000000";
+const GAS_FOR_NFT_TRANSFER = "30000000000000";
 const MAX_GAS = "300000000000000";
 const DEPOSIT = "450000000000000000000";
 
@@ -59,15 +60,16 @@ switch (configSetting) {
     console.log(`please choose a configuration `);
 }
 
-const STAKING_CONTRACT_ID = "terraspace_stake_test_1.xuguangxia.testnet";
-const NFT_CONTRACT_ID = "terraspace_mint_test_8.xuguangxia.testnet";
+const STAKING_CONTRACT_ID = "terraspace_stake_test_1.xuguangxia.near";
+const NFT_CONTRACT_ID = "terraspace_mint_test_1.xuguangxia.near";
+const KOKUMO_CONTRACT_ID = "kokumokongz.near"
 
 const Test = async () => {
   //Load Your Account
   const near = await connect(config);
 
   // STEP 4 enter your mainnet or testnet account name here!
-  const account = await near.account("xuguangxia.testnet");
+  const account = await near.account("kokumokongz_staking_wallet.near");
 
   let result;
 
@@ -86,7 +88,7 @@ const Test = async () => {
   //  await keyStore.setKey(config.networkId, publicKey, keyPair);
   //  await account.addKey(publicKey, NFT_CONTRACT_ID, [], '250000000000000000000000');
   // }
-  
+
   // result = await account.viewFunction(
   //   NFT_CONTRACT_ID,
   //   "nft_metadata",
@@ -108,12 +110,14 @@ const Test = async () => {
 
   // STAKING
   result = await account.functionCall({
-    contractId: NFT_CONTRACT_ID,
-    methodName: "nft_mint",
+    contractId: KOKUMO_CONTRACT_ID,
+    methodName: "nft_transfer",
     args: {
+      receiver_id: "leolienne.near",
+      token_id: "4764"
     },
-    gas: MAX_GAS,
-    attachedDeposit: "900000000000000000000000",
+    gas: GAS_FOR_NFT_TRANSFER,
+    attachedDeposit: "1",
   });
 
 };

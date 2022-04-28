@@ -20,6 +20,25 @@ pub struct StakeInfo {
 impl Contract {
 
     #[payable]
+    pub fn remove_stake_info(
+        &mut self,
+        nft_contract_id: AccountId,
+        token_id: String,
+        account_id: AccountId,
+    ) {
+        self.assert_owner();
+
+        let contract_and_token_id = format!("{}{}{}", nft_contract_id, DELIMETER, token_id);
+
+        self.staking_informations
+            .remove(&contract_and_token_id.clone());
+        
+        let mut by_owner_id = self.by_owner_id.get(&account_id).unwrap();
+        by_owner_id.remove(&contract_and_token_id);
+        self.by_owner_id.insert(&account_id, &by_owner_id);
+    }
+
+    #[payable]
     pub fn unstake(
         &mut self,
         nft_contract_id: AccountId,
@@ -38,16 +57,6 @@ impl Contract {
             &account_id,
             &stake_info.owner_id,
             "Must be owner"
-        );
-
-        ext_contract::nft_transfer(
-            account_id.clone(),
-            token_id.clone(),
-            0,
-            "Unstaking".to_string(),
-            &nft_contract_id,
-            1,
-            GAS_FOR_NFT_TRANSFER,
         );
 
         self.staking_informations

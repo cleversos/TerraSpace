@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.watch-sub-f {
+  cursor: pointer;
+}

@@ -52,6 +52,7 @@ pub struct StorageBalanceBounds {
 pub struct Contract {
     pub owner_id: AccountId,
     pub nft_contract_ids: UnorderedSet<AccountId>,
+    pub observe_ids: UnorderedSet<AccountId>,
     pub staking_informations: UnorderedMap<ContractAndTokenId, StakeInfo>,
     pub by_owner_id: LookupMap<AccountId, UnorderedSet<ContractAndTokenId>>,
     pub storage_deposits: LookupMap<AccountId, Balance>,
@@ -64,6 +65,7 @@ pub enum StorageKey {
     ByOwnerId,
     ByOwnerIdInner { account_id_hash: CryptoHash },
     NftContractIds,
+    ObserveIds,
     StorageDeposits,
 }
 
@@ -76,12 +78,26 @@ impl Contract {
         let mut this = Self {
             owner_id: owner_id.into(),
             nft_contract_ids: UnorderedSet::new(StorageKey::NftContractIds),
+            observe_ids: UnorderedSet::new(StorageKey::ObserveIds),
             // nft_contract_id: String::new(StorageKey::NftContractId),
             staking_informations: UnorderedMap::new(StorageKey::StakingInformation),
             by_owner_id: LookupMap::new(StorageKey::ByOwnerId),
             storage_deposits: LookupMap::new(StorageKey::StorageDeposits),
         };
-        this.nft_contract_ids.insert(&"terraspace_mint_test_8.xuguangxia.testnet".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"terraspace_mint_test_1.xuguangxia.near".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"zerotime.near".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"luciddream.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"terraspace_mint_test_1.xuguangxia.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"asac.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"nearnautnft.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"kokumokongz.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"mara-smartcontract.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"nft.thedons.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"secretskelliessociety.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"grimms.secretskelliessociety.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"mint.havendao.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"dragonnation.near".to_string().try_into().unwrap());
+        
         this
     }
 
@@ -91,12 +107,30 @@ impl Contract {
 
     #[payable]
     pub fn append_nft_contract_id(&mut self, nft_contract_id: AccountId){
+        self.assert_owner();
         self.nft_contract_ids.insert(&nft_contract_id);
     }
 
     #[payable]
     pub fn remove_nft_contract_id(&mut self, nft_contract_id: AccountId){
+        self.assert_owner();
         self.nft_contract_ids.remove(&nft_contract_id);
+    }
+
+    pub fn get_observe_ids(&self) -> Vec<AccountId> {
+        self.observe_ids.to_vec()
+    }
+
+    #[payable]
+    pub fn append_observe_id(&mut self, nft_contract_id: AccountId){
+        self.assert_owner();
+        self.observe_ids.insert(&nft_contract_id);
+    }
+
+    #[payable]
+    pub fn remove_observe_id(&mut self, nft_contract_id: AccountId){
+        self.assert_owner();
+        self.observe_ids.remove(&nft_contract_id);
     }
 
     #[payable]

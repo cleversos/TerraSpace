@@ -1,8 +1,59 @@
 import type { NextPage } from 'next'
 import styles from '../styles/Home.module.css'
+import { WalletContext, NFT_CONTRACT_ID, MAX_GAS } from '../contexts/wallet'
+import { useContext, useEffect, useState } from 'react'
+import { parseNearAmount } from 'near-api-js/lib/utils/format'
 
 const Mint: NextPage = () => {
-  return (
+    const {wallet, signIn} = useContext(WalletContext)
+    const [nftSupply, setNftSupply] = useState(0);
+
+    const onWallet = async () => {
+        signIn();
+    }
+
+    const onMint = async () => {
+        const contributor_0: String[] = await wallet?.account().viewFunction(NFT_CONTRACT_ID, "get_contributor_0");
+        const contributor_4 = await wallet?.account().viewFunction(NFT_CONTRACT_ID, "get_contributor_4");
+        const contributor_7 = await wallet?.account().viewFunction(NFT_CONTRACT_ID, "get_contributor_7");
+
+        let mint_price = "0.9";
+        if( contributor_0.includes(wallet?.getAccountId())){
+            mint_price = "0";
+        }
+        else if( contributor_4.includes(wallet?.getAccountId())){
+            mint_price = "0.4";
+        }
+        else if( contributor_7.includes(wallet?.getAccountId())){
+            mint_price = "0.7";
+        }
+
+        await wallet?.account().functionCall(
+            NFT_CONTRACT_ID,
+            "nft_mint",
+            {
+            },
+            MAX_GAS,
+            parseNearAmount(mint_price)
+        )
+    }
+
+    const updateNftSupply = async () => {
+        const supply = await wallet?.account().viewFunction(NFT_CONTRACT_ID, "nft_total_supply");
+        setNftSupply(supply);
+    }
+
+    useEffect(() => {
+        if(wallet && wallet.isSignedIn())
+            updateNftSupply();
+    }, [wallet]);
+
+    useEffect(() => {
+        if(wallet && wallet.isSignedIn())
+            updateNftSupply();
+    }, []);
+
+    return (
     <main className="mint-page position-relative fix">
         <section className="mint-area pt-100">
             <div className="container">
@@ -33,14 +84,21 @@ const Mint: NextPage = () => {
                                 </div>
                                 <div className="mint-c ">
                                     <h5 className="t-20">
-                                        0/777 Minted
+                                        {nftSupply}/777 Minted
                                     </h5>
                                 </div>
                                 <div className="d-inline-block pt-45">
-                                    <button className="cmn-btn redius-12 f-18">
-                                        <span>Connect Wallet</span>
-                                        <img src="assets/img/icons/Wallet1.svg" alt="wallet"/>
-                                    </button>
+                                        {
+                                            wallet?.isSignedIn() ? 
+                                            <button className="cmn-btn redius-12 f-18" onClick={onMint}>
+                                                <span>Mint</span>
+                                            </button>
+                                            :
+                                            <button className="cmn-btn redius-12 f-18" onClick={onWallet}>
+                                                <span>Connect Wallet</span>
+                                                <img src="assets/img/icons/Wallet1.svg" alt="wallet"/>
+                                            </button>
+                                        }
                                 </div>
                             </div>
 

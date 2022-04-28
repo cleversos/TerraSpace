@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, [])
     return (
         <>
+            <Script src="assets/js/jquery-3.6.0.min.js" />
             <WalletProvider keyStore={keyStore}>
                 <Header />
                 <Component {...pageProps} />
@@ -135,11 +136,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                         </div>
                     </div>
                 </footer>
-                <Script src="assets/js/jquery-3.6.0.min.js" />
                 <Script src="assets/js/popper.min.js" />
                 <Script src="assets/js/bootstrap.min.js" />
-                <Script src="assets/js/owl.carousel.min.js" />
-                <Script src="assets/js/magnific-popup.min.js" />
+                {/* <Script src="assets/js/owl.carousel.min.js" />
+                <Script src="assets/js/magnific-popup.min.js" /> */}
                 <Script src="assets/js/main.js" />
             </WalletProvider>
         </>
