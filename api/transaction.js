@@ -73,8 +73,21 @@ const getTransactionsForCollection = async (account_id) => {
     let result = [];
     let data = collectionStats.get(account_id);
     let index = data.length - 144;
-    if (index < 0)
+    if (index < 0) {
+      for (let i = index; i <= 0; i++)
+        result.push({
+          total_items: 0,
+          total_listed: 0,
+          total_owners: 0,
+          floor_price: 0,
+          floor_price_24: 0,
+          floor_price_7: 0,
+          total_volume: 0,
+          instant_volume: 0,
+          day_volume: 0
+        });
       index = 0;
+    }
     for (let i = index; i < data.length; i++) {
       result.push(data[index]);
     }
@@ -115,7 +128,7 @@ async function intervalFunc() {
       }
     });
   }
-  setTimeout(intervalFunc, 10000);
+  setTimeout(intervalFunc, 600000);
 }
 
 let near;

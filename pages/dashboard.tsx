@@ -25,58 +25,6 @@ ChartJS.register(
   Legend
 );
 
-const options = {
-  responsive: true,
-  interaction: {
-    mode: 'index' as const,
-    intersect: false,
-  },
-  stacked: false,
-  plugins: {
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart - Multi Axis',
-    },
-  },
-  scales: {
-    y: {
-      type: 'linear' as const,
-      display: true,
-      position: 'left' as const,
-    },
-    y1: {
-      type: 'linear' as const,
-      display: true,
-      position: 'right' as const,
-      grid: {
-        drawOnChartArea: false,
-      },
-    },
-  },
-};
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-console.log(labels.map(() => 400))
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => 400),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      yAxisID: 'y',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => 400),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      yAxisID: 'y1',
-    },
-  ],
-};
-
 type CollectionStat = {
   total_items: number
   total_listed: number
@@ -95,7 +43,10 @@ const Mint: NextPage = () => {
   const [collectionList, setCollectionList] = useState<string[]>([])
   const [currentCollectionId, setCurrentCollectionId] = useState<string>('');
   const [collectionMetadataList, setCollectionMetadataList] = useState<Map<string, any>>(new Map());
+  const [chartOptions, setChartOptions] = useState<any>(undefined);
+  const [chartData, setChartData] = useState<any>(undefined);
   const getTransactionsForCollection = async (account_id: string) => {
+    console.log(account_id);
     const getAPI = async () => {
       const API = `http://35.75.88.169:4001/statistic_data`;
       const result = await fetch(API, {
@@ -111,12 +62,13 @@ const Mint: NextPage = () => {
       return (await result.json())
     };
     const result = await getAPI();
+    console.log(result);
     setTransactionData(result);
   }
 
   const onSelect = async (account_id: string) => {
+    await getTransactionsForCollection(account_id);
     setCurrentCollectionId(account_id);
-    getTransactionsForCollection(account_id);
   }
 
   const fetchCollectionList = async () => {
@@ -135,6 +87,103 @@ const Mint: NextPage = () => {
       onSelect(collectionList[0]);
     }
   };
+
+  const makeChartData = async () => {
+    if (currentCollectionId == '' || transactionData.length == 0) {
+      setChartOptions(undefined);
+      setChartData(undefined);
+    } else {
+      const options = {
+        responsive: true,
+        interaction: {
+          mode: 'index' as const,
+          intersect: false,
+        },
+        stacked: false,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Chart.js Line Chart - Multi Axis',
+          },
+        },
+        scales: {
+          y: {
+            type: 'linear' as const,
+            display: true,
+            position: 'left' as const,
+            grid: {
+              drawOnChartArea: false,
+            },
+          },
+          y1: {
+            type: 'linear' as const,
+            display: false,
+            position: 'right' as const,
+          },
+          y2: {
+            type: 'linear' as const,
+            display: true,
+            position: 'right' as const,
+          },
+        },
+      };
+
+      const labels: string[] = ['0:00', '4:00', '8:00', '12:00', '16:00', '20:00', '24:00'];
+      let label_temp: string[] = [];
+      for (let i = 0; i < 23; i++)
+        label_temp.push('');
+      labels.splice(6, 0, ...label_temp);
+      labels.splice(5, 0, ...label_temp);
+      labels.splice(4, 0, ...label_temp);
+      labels.splice(3, 0, ...label_temp);
+      labels.splice(2, 0, ...label_temp);
+      labels.splice(1, 0, ...label_temp);
+
+      let floor_data: number[] = [];
+      let list_data: number[] = [];
+      let volume_data: number[] = [];
+
+      for (let i = 0; i < transactionData.length; i++) {
+        floor_data.push(transactionData[i].floor_price)
+        list_data.push(transactionData[i].total_listed)
+        volume_data.push(transactionData[i].day_volume)
+      }
+
+      const data = {
+        labels,
+        datasets: [
+          {
+            label: 'Floor Price ' + (transactionData.length > 0 ? transactionData[transactionData.length - 1].floor_price : '0') + 'N',
+            data: floor_data,
+            borderColor: 'rgb(63, 72, 204)',
+            backgroundColor: 'rgba(63, 72, 204, 0.5)',
+            yAxisID: 'y',
+          },
+          {
+            label: 'Listed ' + (transactionData.length > 0 ? transactionData[transactionData.length - 1].total_listed : '0'),
+            data: list_data,
+            borderColor: 'rgb(0, 162, 232)',
+            backgroundColor: 'rgba(0, 162, 232, 0.5)',
+            yAxisID: 'y1',
+          },
+          {
+            label: 'Volume ' + (transactionData.length > 0 ? transactionData[transactionData.length - 1].instant_volume : '0') + 'N',
+            data: volume_data,
+            borderColor: 'rgb(163, 73, 164)',
+            backgroundColor: 'rgba(163, 73, 164, 0.5)',
+            yAxisID: 'y2',
+          },
+        ],
+      };
+
+      setChartOptions(options);
+      setChartData(data);
+    }
+  }
+
+  useEffect(() => {
+    makeChartData();
+  }, [currentCollectionId]);
 
   useEffect(() => {
     fetchCollectionMetadataList();
@@ -262,68 +311,12 @@ const Mint: NextPage = () => {
                   </form>
 
                 </div> */}
-
-              </div>
-              <div className="dash-cont count-parent ">
-                <div className="count-s ">
-                  <div className="single-text ">
-                    <div className="char-c mr-12 ">
-                      <img src="assets/img/icons/vol1.svg " alt="vol1 " />
-                    </div>
-                    <div className="mr-8 ">
-                      <p className="t-14 linr-h-150 neutral-c ">
-                        Floor Price
-                      </p>
-                      <h3 className="t-18-b white-c pt-1 ">
-                        <span className="counter ">{transactionData.length > 0 ? transactionData[transactionData.length - 1].floor_price : '0'}</span>
-                        <span>N</span>
-                      </h3>
-                    </div>
-                    {/* <div className="eye-f ">
-                      <img src="assets/img/icons/eye-on.svg " alt="eye " />
-                    </div> */}
-                  </div>
-                </div>
-                <div className="count-s ">
-                  <div className="single-text ">
-                    <div className="char-c mr-12 ">
-                      <img src="assets/img/icons/vol2.svg " alt="vol1 " />
-                    </div>
-                    <div className="mr-8 ">
-                      <p className="t-14 linr-h-150 neutral-c ">
-                        Listed
-                      </p>
-                      <h3 className="t-18-b white-c pt-1 ">
-                        <span className="counter ">{transactionData.length > 0 ? transactionData[transactionData.length - 1].total_listed : '0'}</span>
-                      </h3>
-                    </div>
-                    {/* <div className="eye-f ">
-                      <img src="assets/img/icons/eye-on.svg " alt="eye " />
-                    </div> */}
-                  </div>
-                </div>
-                <div className="count-s ">
-                  <div className="single-text ">
-                    <div className="char-c mr-12 ">
-                      <img src="assets/img/icons/vol3.svg " alt="vol1 " />
-                    </div>
-                    <div className="mr-8 ">
-                      <p className="t-14 linr-h-150 neutral-c ">
-                        The Volume
-                      </p>
-                      <h3 className="t-18-b white-c pt-1 ">
-                        <span className="counter ">{transactionData.length > 0 ? transactionData[transactionData.length - 1].day_volume : '0'}</span>
-                        <span>N</span>
-                      </h3>
-                    </div>
-                    {/* <div className="eye-f ">
-                      <img src="assets/img/icons/eye-off.svg " alt="eye " />
-                    </div> */}
-                  </div>
-                </div>
               </div>
               <div className="chart-b">
-                <Line options={options} data={data} />
+                {
+                  chartOptions != undefined ?
+                    <Line options={chartOptions} data={chartData} /> : <></>
+                }
               </div>
             </div>
           </div>
