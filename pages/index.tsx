@@ -407,9 +407,9 @@ const Home: NextPage = () => {
                                 <span>{key + 1}. </span>
                                 <div className="flex-d">
                                   {
-                                    collectionMetadataList.get(data).icon != undefined ?
-                                      <img src={collectionMetadataList.get(data).icon} alt="abstract1" /> :
-                                      <img src="assets/img/icons/near.png" alt="Near" />
+                                    collectionMetadataList.get(data)?.icon != undefined ?
+                                      <img src={collectionMetadataList.get(data).icon} alt="Icon" /> :
+                                      <img src="assets/img/icons/Near.png" alt="Near" />
                                   }
                                   <p>{collectionMetadataList.get(data) != undefined ? collectionMetadataList.get(data).name : data}</p>
 
