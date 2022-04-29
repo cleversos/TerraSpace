@@ -260,10 +260,11 @@ const Mint: NextPage = () => {
                       <div className="navs-title ">
                         <div className="d-flex align-items-center mb-12">
                           <div className="stking-icon mr-12">
-                            {nftMetadata.get(contract_id)?.icon != undefined ?
+                            {/* {nftMetadata.get(contract_id)?.icon != undefined ?
                               <img className="mr-8" src={nftMetadata.get(contract_id)?.icon} alt="Icon" width={32} height={32} loading="lazy" /> :
                               <img className="mr-8" src="assets/img/icons/Near.png" alt="Near" width={32} height={32} loading="lazy" />
-                            }
+                            } */}
+                            <img className="mr-8" src={"assets/icons/" + contract_id + ".png"} alt="Near" width={32} height={32} loading="lazy" />
                           </div>
                           <div className="hero-subs-t d-flex align-items-center">
                             <h3 className="t-20 white-c mr-8">
