@@ -25,7 +25,6 @@ const Home: NextPage = () => {
       return (await result.json())
     };
     const result = await getAPI();
-    console.log(result);
     setTrendingData(result);
     const list: string[] = await getCollectionList();
     let sortedList: string[] = [];

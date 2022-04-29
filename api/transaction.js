@@ -89,7 +89,7 @@ const getTransactionsForCollection = async (account_id) => {
       index = 0;
     }
     for (let i = index; i < data.length; i++) {
-      result.push(data[index]);
+      result.push(data[i]);
     }
     return result;
   } else {

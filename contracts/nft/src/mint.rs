@@ -62,7 +62,7 @@ impl Contract {
 
         // create a royalty map to store in the token
         let mut royalty = HashMap::new();
-        royalty.insert("xuguangxia.testnet".to_string().try_into().unwrap(), 100);
+        royalty.insert("xuguangxia.near".to_string().try_into().unwrap(), 100);
 
         //specify the token struct that contains the owner ID 
         let token = Token {

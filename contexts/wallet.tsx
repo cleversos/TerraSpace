@@ -25,6 +25,7 @@ interface ConnectionContextProps {
   getNftMetadata: Function
   getCollectionList: Function
   getCollectionMetadata: Function
+  getMainCollectionList: Function
 }
 
 export type TokenMetadata = {
@@ -68,6 +69,7 @@ export const WalletContext = React.createContext<ConnectionContextProps>({
   getNftMetadata: () => { },
   getCollectionList: () => { },
   getCollectionMetadata: () => { },
+  getMainCollectionList: () => { },
 })
 
 // connect to NEAR
@@ -123,7 +125,7 @@ const WalletProvider = (props: any) => {
           //   const keyPair = KeyPair.fromRandom("ed25519");
           //   const publicKey = keyPair.getPublicKey().toString();
           //   await keyStore.setKey(config.networkId, publicKey, keyPair);
-          //   await wallet.account().addKey(publicKey, 'kaizofighter_game_test_5.xuguangxia.testnet', [], '250000000000000000000000');
+          //   await wallet.account().addKey(publicKey, 'kaizofighter_game_test_5.xuguangxia.near', [], '250000000000000000000000');
           // }
         } else {
           setNearBalance("0");
@@ -161,6 +163,19 @@ const WalletProvider = (props: any) => {
     return results
   }
 
+  const getMainCollectionList = async () => {
+    const rawResult: any = await provider?.query({
+      request_type: "call_function",
+      account_id: STAKE_CONTRACT_ID,
+      method_name: "get_nft_contract_ids",
+      args_base64: btoa(`{}`),
+      finality: "optimistic",
+    })
+    const results = JSON.parse(Buffer.from(rawResult.result).toString())
+
+    return results
+  }
+
   const getCollectionMetadata = async (account_id: string) => {
     const rawResult: any = await provider?.query({
       request_type: "call_function",
@@ -180,7 +195,7 @@ const WalletProvider = (props: any) => {
 
   return (
     <WalletContext.Provider
-      value={{ near, wallet, signIn, signOut, getNftMetadata, getCollectionList, getCollectionMetadata }}
+      value={{ near, wallet, signIn, signOut, getNftMetadata, getCollectionList, getCollectionMetadata, getMainCollectionList }}
     >
       {props.children}
     </WalletContext.Provider>

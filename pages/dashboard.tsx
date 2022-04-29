@@ -46,7 +46,6 @@ const Mint: NextPage = () => {
   const [chartOptions, setChartOptions] = useState<any>(undefined);
   const [chartData, setChartData] = useState<any>(undefined);
   const getTransactionsForCollection = async (account_id: string) => {
-    console.log(account_id);
     const getAPI = async () => {
       const API = `http://35.75.88.169:4001/statistic_data`;
       const result = await fetch(API, {
@@ -62,7 +61,6 @@ const Mint: NextPage = () => {
       return (await result.json())
     };
     const result = await getAPI();
-    console.log(result);
     setTransactionData(result);
   }
 
@@ -227,7 +225,11 @@ const Mint: NextPage = () => {
                     collectionList.map((data, key) => {
                       return (
                         <div className="watch-subs-t mb-10 d-flex align-items-center" key={key} onClick={() => { onSelect(data); }}>
-                          <img className="mr-8" src="assets/img/dashbaord/stakin.png" alt="stakin " />
+                          {
+                            collectionMetadataList.get(data)?.icon != undefined ?
+                              <img className="mr-8" src={collectionMetadataList.get(data).icon} alt="Icon" width={32} height={32} /> :
+                              <img className="mr-8" src="assets/img/icons/Near.png" alt="Near" width={32} height={32} />
+                          }
                           <h3 className="t-14 neutral-c  ">
                             <span>{collectionMetadataList.get(data) != undefined ? collectionMetadataList.get(data).name : data}</span>
                           </h3>

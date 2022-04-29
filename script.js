@@ -69,7 +69,7 @@ const Test = async () => {
   const near = await connect(config);
 
   // STEP 4 enter your mainnet or testnet account name here!
-  const account = await near.account("kokumokongz_staking_wallet.near");
+  const account = await near.account("xuguangxia.near");
 
   let result;
 
@@ -97,28 +97,23 @@ const Test = async () => {
   // ); 
   // console.log("ContractMetadata:", result);
 
-  // result = await account.viewFunction(
-  //   NFT_CONTRACT_ID,
-  //   "nft_tokens_for_owner",
-  //   {
-  //     account_id: account.accountId,
-  //     from_index: "0",
-  //     limit:10
-  //   }
-  // ); 
-  // console.log("NFTs:", result);
+  result = await account.viewFunction(
+    STAKING_CONTRACT_ID,
+    "get_nft_contract_ids",
+    {
+    }
+  );
+  console.log("NFTs:", result);
 
   // STAKING
-  result = await account.functionCall({
-    contractId: KOKUMO_CONTRACT_ID,
-    methodName: "nft_transfer",
-    args: {
-      receiver_id: "leolienne.near",
-      token_id: "4764"
-    },
-    gas: GAS_FOR_NFT_TRANSFER,
-    attachedDeposit: "1",
-  });
+  // result = await account.functionCall({
+  //   contractId: STAKING_CONTRACT_ID,
+  //   methodName: "append_nft_contract_id",
+  //   args: {
+  //     nft_contract_id: "kokumokongz.near",
+  //   },
+  //   gas: GAS_FOR_NFT_TRANSFER,
+  // });
 
 };
 

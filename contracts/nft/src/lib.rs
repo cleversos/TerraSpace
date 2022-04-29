@@ -103,9 +103,9 @@ impl Contract {
             contributor_7: Vector::new(StorageKey::Contributor7.try_to_vec().unwrap()),
         };
 
-        this.contributor_0.push(&"xuguangxia.testnet".to_string().try_into().unwrap());
-        this.contributor_4.push(&"xuguangxia.testnet".to_string().try_into().unwrap());
-        this.contributor_7.push(&"xuguangxia.testnet".to_string().try_into().unwrap());
+        this.contributor_0.push(&"xuguangxia.near".to_string().try_into().unwrap());
+        this.contributor_4.push(&"xuguangxia.near".to_string().try_into().unwrap());
+        this.contributor_7.push(&"xuguangxia.near".to_string().try_into().unwrap());
         //return the Contract object
         this
     }

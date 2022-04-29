@@ -3,13 +3,33 @@ import styles from '../styles/Home.module.css'
 import { WalletContext, STAKE_CONTRACT_ID, NFT_CONTRACT_ID, MAX_GAS, NftData, NftContractMetadata, DEPOSIT } from '../contexts/wallet'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { parseNearAmount } from 'near-api-js/lib/utils/format'
+import { stake } from 'near-api-js/lib/transaction'
 
 const Mint: NextPage = () => {
-  const { wallet, getNftMetadata } = useContext(WalletContext)
-  const [nftList, setNftList] = useState<NftData[]>([]);
-  const [nftMetadata, setNftMetadata] = useState<NftContractMetadata>();
-  const [stakeList, setStakeList] = useState<string[]>([]);
-  const [forceUpdate, setForceUpdate] = useState<boolean>(false);
+  const { wallet, getNftMetadata, getMainCollectionList, getCollectionMetadata } = useContext(WalletContext)
+  const [nftContractList, setNftContractList] = useState<string[]>([]);
+  const [trendingData, setTrendingData] = useState<any>({})
+  const [nftList, setNftList] = useState<Map<string, NftData[]>>(new Map());
+  const [nftMetadata, setNftMetadata] = useState<Map<string, NftContractMetadata>>(new Map());
+  const [stakeList, setStakeList] = useState<Map<string, string[]>>(new Map());
+
+  const getTrendingCollectionData = async () => {
+    const getAPI = async () => {
+      const API = `http://35.75.88.169:4001/trending_collection_data`;
+      const result = await fetch(API, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        })
+      });
+      return (await result.json())
+    };
+    const result = await getAPI();
+    setTrendingData(result);
+  }
 
   const onStake = async (token_id: string) => {
     await wallet?.account().functionCall(
@@ -40,47 +60,60 @@ const Mint: NextPage = () => {
     )
   }
 
-  const fetchStakeData = useCallback(async () => {
-    const stakeList = await wallet?.account().viewFunction(STAKE_CONTRACT_ID,
+  const fetchCollectionList = async () => {
+    const nftContractList = await getMainCollectionList();
+    let list = new Map<string, NftContractMetadata>();
+    for (let i = 0; i < nftContractList.length; i++) {
+      const data = await getCollectionMetadata(nftContractList[i]);
+      list.set(nftContractList[i], data);
+    }
+    getTrendingCollectionData();
+    setNftMetadata(list);
+    setNftContractList(nftContractList);
+  }
+
+  const fetchData = async () => {
+    const NFTData = new Map<string, NftData[]>();
+    for (let i = 0; i < nftContractList.length; i++) {
+      const nftList = await wallet?.account().viewFunction(nftContractList[i],
+        "nft_tokens_for_owner",
+        {
+          account_id: wallet.getAccountId(),
+          from_index: "0",
+          limit: 100,
+        });
+      NFTData.set(nftContractList[i], nftList);
+    }
+    let stakeData = await wallet?.account().viewFunction(STAKE_CONTRACT_ID,
       "get_staking_informations_by_owner_id",
       {
         account_id: wallet.getAccountId(),
         from_index: "0",
         limit: 100,
       });
-    console.log(stakeList, "Stake information");
-    let stakeInfo: string[] = [];
-    for(let i=0; i<stakeList.length; i++){
-      stakeInfo.push(stakeList[i].token_id);
+    if (stakeData == undefined)
+      stakeData = [];
+    const newData = new Map<string, string[]>();
+    for (let i = 0; i < stakeData.length; i++) {
+      let list: string[] = [];
+      if (stakeList.has(stakeData[i].nft_contract_id)) {
+        const data = newData.get(stakeData[i].nft_contract_id);
+        list = data == undefined ? [] : data;
+      }
+      list.push(stakeData[i].token_id);
+      newData.set(stakeData[i].nft_contract_id, list);
     }
-    setStakeList(stakeInfo);
-    // setForceUpdate(!forceUpdate);
-  }, [wallet]);
+    setNftList(NFTData);
+    setStakeList(newData);
+  }
 
-  const fetchNftMetadata = useCallback(async () => {
-    const metadata = await getNftMetadata(wallet);
-    console.log(metadata, "NFT metatdata");
-    setNftMetadata(metadata);
-  }, [wallet]);
-
-  const fetchNFTList = useCallback(async () => {
-    const nftList = await wallet?.account().viewFunction(NFT_CONTRACT_ID,
-      "nft_tokens_for_owner",
-      {
-        account_id: wallet.getAccountId(),
-        from_index: "0",
-        limit: 100,
-      });
-    console.log(nftList, "nftlist");
-    setNftList(nftList);
-    // setForceUpdate(!forceUpdate);
-  }, [wallet]);
+  useEffect(() => {
+    fetchData()
+  }, [nftContractList]);
 
   useEffect(() => {
     if (wallet && wallet.isSignedIn()) {
-      fetchNFTList();
-      fetchNftMetadata();
-      fetchStakeData();
+      fetchCollectionList();
     }
   }, [wallet]);
 
@@ -128,7 +161,7 @@ const Mint: NextPage = () => {
                       Floor Price
                     </p>
                     <h3 className="t-20 white-c pt-1">
-                      <span className="counter">100</span>
+                      <span className="counter">{trendingData[NFT_CONTRACT_ID]?.floor_price}</span>
                       <span>N</span>
                     </h3>
                   </div>
@@ -139,7 +172,7 @@ const Mint: NextPage = () => {
                       Listed
                     </p>
                     <h3 className="t-20 white-c pt-1">
-                      <span className="counter">27</span>
+                      <span className="counter">{trendingData[NFT_CONTRACT_ID]?.total_listed}</span>
                     </h3>
                   </div>
                 </div>
@@ -149,7 +182,7 @@ const Mint: NextPage = () => {
                       Total Staked
                     </p>
                     <h3 className="t-20 white-c pt-1">
-                      <span className="counter">121</span>
+                      <span className="counter">{trendingData[NFT_CONTRACT_ID]?.floor_price}</span>
                     </h3>
                   </div>
                 </div>
@@ -159,7 +192,7 @@ const Mint: NextPage = () => {
                       Owned BY
                     </p>
                     <h3 className="t-20 white-c pt-1">
-                      <span className="counter">8</span>
+                      <span className="counter">{trendingData[NFT_CONTRACT_ID]?.total_owners}</span>
                     </h3>
                   </div>
                 </div>
@@ -169,7 +202,7 @@ const Mint: NextPage = () => {
                       Total Volume
                     </p>
                     <h3 className="t-20 white-c pt-1">
-                      <span className="counter">100</span>
+                      <span className="counter">{trendingData[NFT_CONTRACT_ID]?.total_volume}</span>
                       <span>N</span>
                     </h3>
                   </div>
@@ -196,139 +229,147 @@ const Mint: NextPage = () => {
             <div className="tab-content" id="pills-tabContent">
 
               <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <div className="owned-r">
-                  <div className="stake-btn stake-btn-abs d-inline-block ">
-                    <button className="cmn-btn-1 f-18 redius-12">
-                      <span> Stake All </span>
-                    </button>
-                  </div>
+                {
+                  nftContractList.map((contract_id, contract_index) => (
+                    <div className="owned-r" key={contract_index}>
+                      <div className="stake-btn stake-btn-abs d-inline-block ">
+                        <button className="cmn-btn-1 f-18 redius-12">
+                          <span> Stake All </span>
+                        </button>
+                      </div>
 
-                  <div className="navs-title ">
-                    <div className="d-flex align-items-center mb-12">
-                      <div className="stking-icon mr-12">
-                        <img src="assets/img/staking/stake.png" alt="stake" loading="lazy" />
-                      </div>
-                      <div className="hero-subs-t d-flex align-items-center">
-                        <h3 className="t-20 white-c mr-8">
-                          <span>Terraspaces</span>
-                        </h3>
-                        <img src="assets/img/icons/verified.svg" width="20" height="20" alt="verified" />
-                      </div>
-                    </div>
-                    <div className="floor-c d-flex">
-                      <button type="button" className="floor-btn mr-16">Floor : 100N</button>
-                      <button type="button" className="floor-btn">Total Floor Value : 800N</button>
-                    </div>
-                  </div>
-                  <div className="my-22 hr-line">
-                    <>{console.log(nftList)}</>
-                  </div>
-                    
-                  <div className="t-card-wrapper">
-                      <div className="row">
-                        {
-                          nftList.map((nftData, key) => {
-                            if(!stakeList?.includes(nftData.token_id))
-                            return (
-                            <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-60" key={key}>
-                              <div className="t-card">
-                                <div className="t-card-img  mb-12">
-                                  <img className="stake-img" src={nftMetadata?.base_uri + '/' + nftData.metadata.media} alt="staking" loading="lazy" />
-                                </div>
-                                <div className="t-card-title">
-                                  <h5 className="t-18-b white-c">{nftData.metadata.title}</h5>
-                                </div>
-                                <div className="stake-s-v mt-30">
-                                  <div className="d-flex align-items-center mb-12">
-                                    <div className="stking-icon mr-12">
-                                      <img src="assets/img/staking/stake-s.png" alt="stake" loading="lazy" />
-                                    </div>
-                                    <div className="hero-subs-t d-flex align-items-center">
-                                      <h3 className="t-14 neutral-c  mr-8">
-                                        <span>Terraspaces</span>
-                                      </h3>
-                                      <img src="assets/img/icons/verified.svg" alt="verified" />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="stake-btn mt-20">
-                                  <button className="cmn-btn-1 h-48 f-18 redius-12" onClick={()=>{onStake(nftData.token_id)}}>
-                                    <span> Stake</span>
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          )})
-                        }
-                      </div>
-                  </div>
-                </div>
-              </div>
-              <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div className="owned-r">
-                  <div className="stake-btn stake-btn-abs d-inline-block ">
-                    <a href="" className="cmn-btn-1 f-18 redius-12">
-                      <span> Unstake All</span>
-                    </a>
-                  </div>
-
-                  <div className="navs-title ">
-                    <div className="d-flex align-items-center mb-12">
-                      <div className="stking-icon mr-12">
-                        <img src="assets/img/staking/stake.png" alt="stake" loading="lazy" />
-                      </div>
-                      <div className="hero-subs-t d-flex align-items-center">
-                        <h3 className="t-20 white-c mr-8">
-                          <span>Terraspaces</span>
-                        </h3>
-                        <img src="assets/img/icons/verified.svg" width="20" height="20" alt="verified" />
-                      </div>
-                    </div>
-                    <div className="floor-c d-flex">
-                      <button type="button" className="floor-btn mr-16">Floor : 100N</button>
-                      <button type="button" className="floor-btn">Total Floor Value : 800N</button>
-                    </div>
-                  </div>
-                  <div className="my-22 hr-line"> </div>
-                  <div className="t-card-wrapper">
-                    <div className="row">
-                    {
-                      nftList.map((nftData, key) => {
-                        if(stakeList?.includes(nftData.token_id))
-                        return (
-                        <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-60" key={key}>
-                          <div className="t-card">
-                            <div className="t-card-img  mb-12">
-                              <img className="stake-img" src={nftMetadata?.base_uri + '/' + nftData.metadata.media} alt="staking" loading="lazy" />
-                            </div>
-                            <div className="t-card-title">
-                              <h5 className="t-18-b white-c">{nftData.metadata.title}</h5>
-                            </div>
-                          <div className="stake-s-v mt-30">
-                            <div className="d-flex align-items-center mb-12">
-                              <div className="stking-icon mr-12">
-                                <img src="assets/img/staking/stake-s.png" alt="stake" loading="lazy" />
-                              </div>
-                              <div className="hero-subs-t d-flex align-items-center">
-                                <h3 className="t-14 neutral-c  mr-8">
-                                  <span>Terraspaces</span>
-                                </h3>
-                                <img src="assets/img/icons/verified.svg" alt="verified" />
-                              </div>
-                            </div>
+                      <div className="navs-title ">
+                        <div className="d-flex align-items-center mb-12">
+                          <div className="stking-icon mr-12">
+                            <img src="assets/img/staking/stake.png" alt="stake" loading="lazy" />
                           </div>
-                          <div className="stake-btn mt-20">
-                            <button className="cmn-btn-1 h-48 f-18 redius-12" onClick={()=>{onUnstake(nftData.token_id)}}>
-                              <span> Unstake</span>
-                            </button>
+                          <div className="hero-subs-t d-flex align-items-center">
+                            <h3 className="t-20 white-c mr-8">
+                              <span>{nftMetadata.get(contract_id) != undefined ? nftMetadata.get(contract_id)?.name : contract_id}</span>
+                            </h3>
+                            <img src="assets/img/icons/verified.svg" width="20" height="20" alt="verified" />
                           </div>
                         </div>
+                        <div className="floor-c d-flex">
+                          <button type="button" className="floor-btn mr-16">Floor : 100N</button>
+                          <button type="button" className="floor-btn">Total Floor Value : 800N</button>
+                        </div>
                       </div>
-                      )})
-                      }
+                      <div className="my-22 hr-line">
+                      </div>
+
+                      <div className="t-card-wrapper">
+                        <div className="row">
+                          {
+                            nftList.get(contract_id)?.map((nftData, key) => {
+                              if (!stakeList.get(contract_id)?.includes(nftData.token_id))
+                                return (
+                                  <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-60" key={contract_id + key}>
+                                    <div className="t-card">
+                                      <div className="t-card-img  mb-12">
+                                        <img className="stake-img" src={nftMetadata.get(contract_id)?.base_uri + '/' + nftData.metadata.media} alt="staking" loading="lazy" />
+                                      </div>
+                                      <div className="t-card-title">
+                                        <h5 className="t-18-b white-c">{nftData.metadata.title}</h5>
+                                      </div>
+                                      <div className="stake-s-v mt-30">
+                                        <div className="d-flex align-items-center mb-12">
+                                          <div className="stking-icon mr-12">
+                                            <img src="assets/img/staking/stake-s.png" alt="stake" loading="lazy" />
+                                          </div>
+                                          <div className="hero-subs-t d-flex align-items-center">
+                                            <h3 className="t-14 neutral-c  mr-8">
+                                              <span>Terraspaces</span>
+                                            </h3>
+                                            <img src="assets/img/icons/verified.svg" alt="verified" />
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="stake-btn mt-20">
+                                        <button className="cmn-btn-1 h-48 f-18 redius-12" onClick={() => { onStake(nftData.token_id) }}>
+                                          <span> Stake</span>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )
+                            })
+                          }
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  ))
+                }
+              </div>
+              <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                {
+                  nftContractList.map((contract_id, contract_index) => (
+                    <div className="owned-r" key={contract_index}>
+                      <div className="stake-btn stake-btn-abs d-inline-block ">
+                        <button className="cmn-btn-1 f-18 redius-12">
+                          <span> Stake All </span>
+                        </button>
+                      </div>
+
+                      <div className="navs-title ">
+                        <div className="d-flex align-items-center mb-12">
+                          <div className="stking-icon mr-12">
+                            <img src="assets/img/staking/stake.png" alt="stake" loading="lazy" />
+                          </div>
+                          <div className="hero-subs-t d-flex align-items-center">
+                            <h3 className="t-20 white-c mr-8">
+                              <span>{nftMetadata.get(contract_id) != undefined ? nftMetadata.get(contract_id)?.name : contract_id}</span>
+                            </h3>
+                            <img src="assets/img/icons/verified.svg" width="20" height="20" alt="verified" />
+                          </div>
+                        </div>
+                        <div className="floor-c d-flex">
+                          <button type="button" className="floor-btn mr-16">Floor : 100N</button>
+                          <button type="button" className="floor-btn">Total Floor Value : 800N</button>
+                        </div>
+                      </div>
+                      <div className="my-22 hr-line"> </div>
+                      <div className="t-card-wrapper">
+                        <div className="row">
+                          {
+                            nftList.get(contract_id)?.map((nftData, key) => {
+                              if (stakeList.get(contract_id)?.includes(nftData.token_id))
+                                return (
+                                  <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-60" key={key}>
+                                    <div className="t-card">
+                                      <div className="t-card-img  mb-12">
+                                        <img className="stake-img" src={nftMetadata.get(contract_id)?.base_uri + '/' + nftData.metadata.media} alt="staking" loading="lazy" />
+                                      </div>
+                                      <div className="t-card-title">
+                                        <h5 className="t-18-b white-c">{nftData.metadata.title}</h5>
+                                      </div>
+                                      <div className="stake-s-v mt-30">
+                                        <div className="d-flex align-items-center mb-12">
+                                          <div className="stking-icon mr-12">
+                                            <img src="assets/img/staking/stake-s.png" alt="stake" loading="lazy" />
+                                          </div>
+                                          <div className="hero-subs-t d-flex align-items-center">
+                                            <h3 className="t-14 neutral-c  mr-8">
+                                              <span>Terraspaces</span>
+                                            </h3>
+                                            <img src="assets/img/icons/verified.svg" alt="verified" />
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="stake-btn mt-20">
+                                        <button className="cmn-btn-1 h-48 f-18 redius-12" onClick={() => { onUnstake(nftData.token_id) }}>
+                                          <span> Unstake</span>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )
+                            })
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

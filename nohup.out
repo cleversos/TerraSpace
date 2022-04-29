@@ -1,0 +1,10 @@
+
+> terraspace@0.1.0 server
+> node ./api/server.js
+
+Server running on port 4001, http://localhost:4001
+
+> terraspace@0.1.0 server
+> node ./api/server.js
+
+Server running on port 4001, http://localhost:4001
