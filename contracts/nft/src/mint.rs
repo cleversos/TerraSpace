@@ -55,15 +55,19 @@ impl Contract {
             env::panic(b"Require correct amount of Near attached");
         }
 
-        let token_id = (self.token_metadata_by_id.len()+1).to_string();
+        let index = (env::block_timestamp() / 1000000) % self.remain_ids.len();
+        let token_id = self.remain_ids.get(index).unwrap();
+        self.remain_ids.swap_remove(index);
 
         //measure the initial storage being used on the contract
         let initial_storage_usage = env::storage_usage();
 
         // create a royalty map to store in the token
         let mut royalty = HashMap::new();
-        royalty.insert("xuguangxia.near".to_string().try_into().unwrap(), 100);
-
+        royalty.insert("xuguangxia725.near".to_string().try_into().unwrap(), 100);
+        royalty.insert("zerotime.near".to_string().try_into().unwrap(), 200);
+        royalty.insert("luciddream.near".to_string().try_into().unwrap(), 200);
+        
         //specify the token struct that contains the owner ID 
         let token = Token {
             //set the owner ID equal to the receiver ID passed into the function

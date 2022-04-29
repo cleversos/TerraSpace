@@ -9,8 +9,8 @@ import { Provider } from "near-api-js/lib/providers";
 
 const { KeyPair, keyStores, connect, WalletConnection, utils: { format: { formatNearAmount } } } = nearAPI;
 
-export const STAKE_CONTRACT_ID = "terraspace_stake_test_1.xuguangxia.near"
-export const NFT_CONTRACT_ID = "terraspace_mint_test_1.xuguangxia.near"
+export const STAKE_CONTRACT_ID = "terraspace_stake_test_2.xuguangxia.near"
+export const NFT_CONTRACT_ID = "terraspace_mint_test_2.xuguangxia.near"
 export const GAS_FOR_NFT_APPROVE = "20000000000000";
 export const GAS_FOR_RESOLVE_TRANSFER = "10000000000000";
 export const GAS_FOR_SIMPLE_TRANSACTION = "10000000000000";

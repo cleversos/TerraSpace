@@ -84,10 +84,10 @@ impl Contract {
             by_owner_id: LookupMap::new(StorageKey::ByOwnerId),
             storage_deposits: LookupMap::new(StorageKey::StorageDeposits),
         };
-        this.nft_contract_ids.insert(&"terraspace_mint_test_1.xuguangxia.near".to_string().try_into().unwrap());
-        this.nft_contract_ids.insert(&"zerotime.near".to_string().try_into().unwrap());
-        this.nft_contract_ids.insert(&"luciddream.near".to_string().try_into().unwrap());
-        this.observe_ids.insert(&"terraspace_mint_test_1.xuguangxia.near".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"terraspace_mint_test_2.xuguangxia.near".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"asac.near".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"nearnautnft.near".to_string().try_into().unwrap());
+        this.observe_ids.insert(&"terraspace_mint_test_2.xuguangxia.near".to_string().try_into().unwrap());
         this.observe_ids.insert(&"asac.near".to_string().try_into().unwrap());
         this.observe_ids.insert(&"nearnautnft.near".to_string().try_into().unwrap());
         this.observe_ids.insert(&"kokumokongz.near".to_string().try_into().unwrap());

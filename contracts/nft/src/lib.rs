@@ -45,6 +45,8 @@ pub struct Contract {
     //keeps track of the token metadata for a given token ID
     pub token_metadata_by_id: UnorderedMap<TokenId, TokenMetadata>,
 
+    pub remain_ids: Vector<String>,
+
     //keeps track of the metadata for the contract
     pub metadata: LazyOption<NFTContractMetadata>,
     pub contributor_0: Vector<AccountId>,
@@ -66,6 +68,7 @@ pub enum StorageKey {
     Contributor0,
     Contributor4,
     Contributor7,
+    RemainIds,
 }
 
 #[near_bindgen]
@@ -101,12 +104,19 @@ impl Contract {
             contributor_0: Vector::new(StorageKey::Contributor0.try_to_vec().unwrap()),
             contributor_4: Vector::new(StorageKey::Contributor4.try_to_vec().unwrap()),
             contributor_7: Vector::new(StorageKey::Contributor7.try_to_vec().unwrap()),
+            remain_ids: Vector::new(StorageKey::RemainIds.try_to_vec().unwrap()),
         };
 
         this.contributor_0.push(&"xuguangxia.near".to_string().try_into().unwrap());
+        this.contributor_0.push(&"zerotime.near".to_string().try_into().unwrap());
         this.contributor_4.push(&"xuguangxia.near".to_string().try_into().unwrap());
+        this.contributor_4.push(&"zerotime.near".to_string().try_into().unwrap());
         this.contributor_7.push(&"xuguangxia.near".to_string().try_into().unwrap());
+        this.contributor_7.push(&"luciddream.near".to_string().try_into().unwrap());
         //return the Contract object
+        for i in 1..777{
+            this.remain_ids.push(&i.to_string());
+        }
         this
     }
 

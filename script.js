@@ -60,8 +60,8 @@ switch (configSetting) {
     console.log(`please choose a configuration `);
 }
 
-const STAKING_CONTRACT_ID = "terraspace_stake_test_1.xuguangxia.near";
-const NFT_CONTRACT_ID = "terraspace_mint_test_1.xuguangxia.near";
+const STAKING_CONTRACT_ID = "terraspace_stake_test_2.xuguangxia.near";
+const NFT_CONTRACT_ID = "terraspace_mint_test_2.xuguangxia.near";
 const KOKUMO_CONTRACT_ID = "kokumokongz.near"
 
 const Test = async () => {

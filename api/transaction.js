@@ -38,7 +38,7 @@ const getObserveCollections = async () => {
   }
 }
 
-const CONTRACT_ACCOUNT_ID = "terraspace_stake_test_1.xuguangxia.near"
+const CONTRACT_ACCOUNT_ID = "terraspace_stake_test_2.xuguangxia.near"
 
 const FETCH_URL = "https://api-v2-mainnet.paras.id/collection-stats?collection_id="
 
