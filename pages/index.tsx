@@ -98,12 +98,12 @@ const Home: NextPage = () => {
                     </p>
                   </div>
 
-                  <div className="get-button d-inline-block">
+                  {/* <div className="get-button d-inline-block">
                     <button className="cmn-btn f-18 redius-12">
                       <span> Get Started</span>
                       <img src="assets/img/icons/Explore.svg" alt="get" />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

@@ -134,20 +134,20 @@ const Mint: NextPage = () => {
           y: {
             type: 'linear' as const,
             display: true,
-            position: 'left' as const,
+            position: 'right' as const,
             grid: {
               drawOnChartArea: false,
             },
           },
           y1: {
             type: 'linear' as const,
-            display: false,
-            position: 'right' as const,
+            display: true,
+            position: 'left' as const,
           },
           y2: {
             type: 'linear' as const,
-            display: true,
-            position: 'right' as const,
+            display: false,
+            position: 'left' as const,
           },
         },
       };
@@ -183,6 +183,8 @@ const Mint: NextPage = () => {
             borderColor: 'rgb(63, 72, 204)',
             backgroundColor: 'rgba(63, 72, 204, 0.5)',
             yAxisID: 'y',
+            borderWidth: 1,
+            radius: 1,
           },
           {
             type: 'line' as const,
@@ -191,14 +193,17 @@ const Mint: NextPage = () => {
             borderColor: 'rgb(0, 162, 232)',
             backgroundColor: 'rgba(0, 162, 232, 0.5)',
             yAxisID: 'y1',
+            borderWidth: 1,
+            radius: 1,
           },
           {
             type: 'bar' as const,
             label: 'Volume ' + (transactionData.length > 0 ? transactionData[transactionData.length - 1].instant_volume : '0') + 'N',
             data: volume_data,
-            borderColor: 'rgb(163, 73, 164)',
-            backgroundColor: 'rgba(163, 73, 164, 0.5)',
+            borderColor: 'rgb(255, 128, 192)',
+            backgroundColor: 'rgba(255, 128, 192, 0.5)',
             yAxisID: 'y2',
+            radius: 1,
           },
         ],
       };
@@ -354,7 +359,7 @@ const Mint: NextPage = () => {
                 </div>
               </div>
               :
-              <h3>You can access dashboard after stake at least 1 nft.</h3>
+              <h3>Please Stake Terraspaces NFT or Partner NFT to Access Dashboard.</h3>
           }
         </div>
       </div>
