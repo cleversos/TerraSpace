@@ -9,17 +9,19 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -175,6 +177,7 @@ const Mint: NextPage = () => {
         labels,
         datasets: [
           {
+            type: 'line' as const,
             label: 'Floor Price ' + (transactionData.length > 0 ? transactionData[transactionData.length - 1].floor_price : '0') + 'N',
             data: floor_data,
             borderColor: 'rgb(63, 72, 204)',
@@ -182,6 +185,7 @@ const Mint: NextPage = () => {
             yAxisID: 'y',
           },
           {
+            type: 'line' as const,
             label: 'Listed ' + (transactionData.length > 0 ? transactionData[transactionData.length - 1].total_listed : '0'),
             data: list_data,
             borderColor: 'rgb(0, 162, 232)',
@@ -189,6 +193,7 @@ const Mint: NextPage = () => {
             yAxisID: 'y1',
           },
           {
+            type: 'bar' as const,
             label: 'Volume ' + (transactionData.length > 0 ? transactionData[transactionData.length - 1].instant_volume : '0') + 'N',
             data: volume_data,
             borderColor: 'rgb(163, 73, 164)',
@@ -343,7 +348,7 @@ const Mint: NextPage = () => {
                   <div className="chart-b">
                     {
                       chartOptions != undefined ?
-                        <Line options={chartOptions} data={chartData} /> : <></>
+                        <Chart type='bar' options={chartOptions} data={chartData} /> : <></>
                     }
                   </div>
                 </div>
