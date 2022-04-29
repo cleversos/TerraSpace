@@ -77,7 +77,7 @@ const Home: NextPage = () => {
                     <div className="popup-videos">
                       <img src="assets/img/icons/video-i.png" alt="video" loading="lazy" />
                       <div className="video-p">
-                        <a className="videos-icon" href="https://www.youtube.com/watch?v=Fzu_gMLk55A">
+                        <a className="videos-icon" href="https://www.youtube.com/watch?v=fEXl3hTT-to">
                           <i className="fas fa-play"></i>
                         </a>
                       </div>
@@ -410,7 +410,7 @@ const Home: NextPage = () => {
                                       <img src={collectionMetadataList.get(data).icon} alt="Icon" /> :
                                       <img src="assets/img/icons/Near.png" alt="Near" />
                                   }
-                                  <p>{collectionMetadataList.get(data) != undefined ? collectionMetadataList.get(data).name : data}</p>
+                                  <a href={'https://paras.id/collection/' + data} target="_blank">{collectionMetadataList.get(data) != undefined ? collectionMetadataList.get(data).name : data}</a>
 
                                 </div>
                               </div>

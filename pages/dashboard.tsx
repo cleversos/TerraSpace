@@ -143,6 +143,15 @@ const Mint: NextPage = () => {
       if (volume_max == 0)
         volume_max = 100;
 
+      let labels: string[] = [];
+      let label_mins: string[] = ['00', '10', '20', '30', '40', '50'];
+      for (let i = 0; i < 24; i++) {
+        for (let j = 0; j < 6; j++) {
+          labels.push(i.toString() + ":" + label_mins[j]);
+        }
+      }
+      labels.push('24:00');
+
       const options = {
         responsive: true,
         interaction: {
@@ -152,11 +161,15 @@ const Mint: NextPage = () => {
         stacked: false,
         plugins: {
           title: {
-            display: true,
+            display: false,
             text: 'Chart.js Line Chart - Multi Axis',
           },
         },
         scales: {
+          x: {
+            type: 'category',
+            labels: labels
+          },
           y: {
             type: 'linear' as const,
             display: true,
@@ -184,19 +197,7 @@ const Mint: NextPage = () => {
         },
       };
 
-      const labels: string[] = ['0:00', '4:00', '8:00', '12:00', '16:00', '20:00', '24:00'];
-      let label_temp: string[] = [];
-      for (let i = 0; i < 23; i++)
-        label_temp.push('');
-      labels.splice(6, 0, ...label_temp);
-      labels.splice(5, 0, ...label_temp);
-      labels.splice(4, 0, ...label_temp);
-      labels.splice(3, 0, ...label_temp);
-      labels.splice(2, 0, ...label_temp);
-      labels.splice(1, 0, ...label_temp);
-
       const data = {
-        labels,
         datasets: [
           {
             type: 'line' as const,
@@ -254,7 +255,7 @@ const Mint: NextPage = () => {
         <img src="assets/img/vector/Vector.png" alt="Vector" loading="lazy" />
       </div>
       <div className="dashboard-wrapper">
-        <div className="container">
+        <div className="" style={{ marginLeft: 60, marginRight: 60 }}>
           {
             dashboardEnabled == true ?
               <div className="row">
@@ -344,7 +345,11 @@ const Mint: NextPage = () => {
                   <div className="dashboard-t d-lg-flex justify-content-between align-items-center">
                     <div className="d-flex justify-content-center align-items-center ">
                       <div className="dashboard-icon mr-12 ">
-                        <img src="assets/img/dashbaord/stakin-l.png " alt="stakin " loading="lazy" />
+                        {
+                          collectionMetadataList.get(currentCollectionId)?.icon != undefined ?
+                            <img className="mr-8" src={collectionMetadataList.get(currentCollectionId).icon} alt="Icon" width={32} height={32} /> :
+                            <img className="mr-8" src="assets/img/icons/Near.png" alt="Near" width={32} height={32} />
+                        }
                       </div>
                       <div className="hero-description ">
                         <div className="hero-subs-t d-flex align-items-center justify-content-center ">
@@ -354,9 +359,9 @@ const Mint: NextPage = () => {
                           <img src="assets/img/icons/verified.svg " width="20 " height="20 " alt="verified " />
                         </div>
                         <div className="pt-1 hero-subs-s-title d-flex align-items-center justify-content-center ">
-                          <p className="t-14 neutral-c mr-4 ">
+                          <a className="t-14 neutral-c mr-4 " href={'https://paras.id/collection/' + currentCollectionId} target="_blank">
                             {currentCollectionId}
-                          </p>
+                          </a>
                           <img src="assets/img/icons/chain.svg " width="20 " height="20 " alt="verified " />
                         </div>
                       </div>
