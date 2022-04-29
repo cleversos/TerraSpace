@@ -8,3 +8,452 @@ Server running on port 4001, http://localhost:4001
 > node ./api/server.js
 
 Server running on port 4001, http://localhost:4001
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Timeout.intervalFunc [as _onTimeout] (/home/ubuntu/TerraSpace/api/transaction.js:101:23) {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Timeout.intervalFunc [as _onTimeout] (/home/ubuntu/TerraSpace/api/transaction.js:101:23) {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Timeout.intervalFunc [as _onTimeout] (/home/ubuntu/TerraSpace/api/transaction.js:101:23) {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Timeout.intervalFunc [as _onTimeout] (/home/ubuntu/TerraSpace/api/transaction.js:101:23) {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Timeout.intervalFunc [as _onTimeout] (/home/ubuntu/TerraSpace/api/transaction.js:101:23) {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Timeout.intervalFunc [as _onTimeout] (/home/ubuntu/TerraSpace/api/transaction.js:101:23) {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}
+TypedError: [-32000] Server error: account terraspace_stake_test_1.xuguangxia.near does not exist while viewing
+    at /home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:329:31
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at async Object.exponentialBackoff [as default] (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/utils/exponential-backoff.js:7:24)
+    at async JsonRpcProvider.sendJsonRpc (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:304:26)
+    at async JsonRpcProvider.query (/home/ubuntu/TerraSpace/node_modules/near-api-js/lib/providers/json-rpc-provider.js:116:22)
+    at async getObserveCollections (/home/ubuntu/TerraSpace/api/transaction.js:25:23)
+    at async Object.getTrendingCollectionData (/home/ubuntu/TerraSpace/api/transaction.js:46:23)
+    at async /home/ubuntu/TerraSpace/api/server.js:26:21 {
+  type: 'AccountDoesNotExist',
+  context: undefined
+}

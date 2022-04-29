@@ -104,7 +104,8 @@ const Mint: NextPage = () => {
           token_id: stakeData[i].token_id,
         });
 
-      if (nft_info.approved_account_ids.length == 0 && nft_info.approved_account_ids[0] == STAKE_CONTRACT_ID) {
+      if ((JSON.stringify(nft_info.approved_account_ids).match(STAKE_CONTRACT_ID) || []).length
+        == (JSON.stringify(nft_info.approved_account_ids).match('":') || []).length) {
         let list: string[] = [];
         if (stakeList.has(stakeData[i].nft_contract_id)) {
           const data = newData.get(stakeData[i].nft_contract_id);
@@ -250,11 +251,11 @@ const Mint: NextPage = () => {
                 {
                   nftContractList.map((contract_id, contract_index) => (
                     <div className="owned-r" key={contract_index}>
-                      <div className="stake-btn stake-btn-abs d-inline-block ">
+                      {/* <div className="stake-btn stake-btn-abs d-inline-block ">
                         <button className="cmn-btn-1 f-18 redius-12">
                           <span> Stake All </span>
                         </button>
-                      </div>
+                      </div> */}
 
                       <div className="navs-title ">
                         <div className="d-flex align-items-center mb-12">
@@ -331,11 +332,11 @@ const Mint: NextPage = () => {
                 {
                   nftContractList.map((contract_id, contract_index) => (
                     <div className="owned-r" key={contract_index}>
-                      <div className="stake-btn stake-btn-abs d-inline-block ">
+                      {/* <div className="stake-btn stake-btn-abs d-inline-block ">
                         <button className="cmn-btn-1 f-18 redius-12">
-                          <span> Stake All </span>
+                          <span> Unstake All </span>
                         </button>
-                      </div>
+                      </div> */}
 
                       <div className="navs-title ">
                         <div className="d-flex align-items-center mb-12">

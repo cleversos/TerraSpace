@@ -45,6 +45,8 @@ const Mint: NextPage = () => {
   const [collectionMetadataList, setCollectionMetadataList] = useState<Map<string, any>>(new Map());
   const [chartOptions, setChartOptions] = useState<any>(undefined);
   const [chartData, setChartData] = useState<any>(undefined);
+  const [dashboardEnabled, setDashboardEnabled] = useState<boolean>(false);
+
   const getTransactionsForCollection = async (account_id: string) => {
     const getAPI = async () => {
       const API = `http://35.75.88.169:4001/statistic_data`;
@@ -70,8 +72,30 @@ const Mint: NextPage = () => {
   }
 
   const fetchCollectionList = async () => {
-    const list = await getCollectionList();
-    setCollectionList(list);
+    let stakeData = await wallet?.account().viewFunction(STAKE_CONTRACT_ID,
+      "get_staking_informations_by_owner_id",
+      {
+        account_id: wallet.getAccountId(),
+        from_index: "0",
+        limit: 100,
+      });
+    if (stakeData == undefined)
+      stakeData = [];
+    for (let i = 0; i < stakeData.length; i++) {
+      const nft_info = await wallet?.account().viewFunction(stakeData[i].nft_contract_id,
+        "nft_token",
+        {
+          token_id: stakeData[i].token_id,
+        });
+
+      if ((JSON.stringify(nft_info.approved_account_ids).match(STAKE_CONTRACT_ID) || []).length
+        == (JSON.stringify(nft_info.approved_account_ids).match('":') || []).length) {
+        setDashboardEnabled(true);
+        const list = await getCollectionList();
+        setCollectionList(list);
+      }
+    }
+
   }
 
   const fetchCollectionMetadataList = async () => {
@@ -144,7 +168,7 @@ const Mint: NextPage = () => {
       for (let i = 0; i < transactionData.length; i++) {
         floor_data.push(transactionData[i].floor_price)
         list_data.push(transactionData[i].total_listed)
-        volume_data.push(transactionData[i].day_volume)
+        volume_data.push(transactionData[i].instant_volume)
       }
 
       const data = {
@@ -199,10 +223,12 @@ const Mint: NextPage = () => {
       </div>
       <div className="dashboard-wrapper">
         <div className="container">
-          <div className="row">
-            <div className="col-xl-3 col-lg-4 col-md-4 mb-25">
-              <div className="watchlist-wrapper card-bg">
-                {/* <div className="single-watchlist">
+          {
+            dashboardEnabled == true ?
+              <div className="row">
+                <div className="col-xl-3 col-lg-4 col-md-4 mb-25">
+                  <div className="watchlist-wrapper card-bg">
+                    {/* <div className="single-watchlist">
                   <div className="watch-t mb-20 d-flex align-items-center justify-content-between">
                     <h3 className="t-18-b white-c">
                       <span>Terraspaces</span>
@@ -220,26 +246,26 @@ const Mint: NextPage = () => {
 
                     </div>
                   </div> */}
-                <div className="watch-sub-f pl-20 ">
-                  {
-                    collectionList.map((data, key) => {
-                      return (
-                        <div className="watch-subs-t mb-10 d-flex align-items-center" key={key} onClick={() => { onSelect(data); }}>
-                          {
-                            collectionMetadataList.get(data)?.icon != undefined ?
-                              <img className="mr-8" src={collectionMetadataList.get(data).icon} alt="Icon" width={32} height={32} /> :
-                              <img className="mr-8" src="assets/img/icons/Near.png" alt="Near" width={32} height={32} />
-                          }
-                          <h3 className="t-14 neutral-c  ">
-                            <span>{collectionMetadataList.get(data) != undefined ? collectionMetadataList.get(data).name : data}</span>
-                          </h3>
-                        </div>
-                      )
-                    })
-                  }
-                </div>
+                    <div className="watch-sub-f pl-20 ">
+                      {
+                        collectionList.map((data, key) => {
+                          return (
+                            <div className="watch-subs-t mb-10 d-flex align-items-center" key={key} onClick={() => { onSelect(data); }}>
+                              {
+                                collectionMetadataList.get(data)?.icon != undefined ?
+                                  <img className="mr-8" src={collectionMetadataList.get(data).icon} alt="Icon" width={32} height={32} /> :
+                                  <img className="mr-8" src="assets/img/icons/Near.png" alt="Near" width={32} height={32} />
+                              }
+                              <h3 className="t-14 neutral-c  ">
+                                <span>{collectionMetadataList.get(data) != undefined ? collectionMetadataList.get(data).name : data}</span>
+                              </h3>
+                            </div>
+                          )
+                        })
+                      }
+                    </div>
 
-                {/* </div>
+                    {/* </div>
                 <div className="single-watchlist">
                   <div className="watch-t mb-20 d-flex align-items-center justify-content-between">
                     <h3 className="t-18-b white-c">
@@ -274,36 +300,36 @@ const Mint: NextPage = () => {
                   </div>
 
                 </div> */}
-                {/* <div className="watch-btn">
+                    {/* <div className="watch-btn">
                   <button className="cmn-btn f-18 redius-12">
                     <span> Get Started</span>
                     <img src="assets/img/icons/plus.svg" alt="plus" />
                   </button>
                 </div> */}
-              </div>
-            </div>
-            <div className="col-xl-9 col-lg-8 col-md-8">
-              <div className="dashboard-t d-lg-flex justify-content-between align-items-center">
-                <div className="d-flex justify-content-center align-items-center ">
-                  <div className="dashboard-icon mr-12 ">
-                    <img src="assets/img/dashbaord/stakin-l.png " alt="stakin " loading="lazy" />
-                  </div>
-                  <div className="hero-description ">
-                    <div className="hero-subs-t d-flex align-items-center justify-content-center ">
-                      <h3 className="t-18-b white-c mr-8 ">
-                        <span>{collectionMetadataList.get(currentCollectionId)?.name}</span>
-                      </h3>
-                      <img src="assets/img/icons/verified.svg " width="20 " height="20 " alt="verified " />
-                    </div>
-                    <div className="pt-1 hero-subs-s-title d-flex align-items-center justify-content-center ">
-                      <p className="t-14 neutral-c mr-4 ">
-                        {currentCollectionId}
-                      </p>
-                      <img src="assets/img/icons/chain.svg " width="20 " height="20 " alt="verified " />
-                    </div>
                   </div>
                 </div>
-                {/* <div className="search-f pt-3 pt-lg-0">
+                <div className="col-xl-9 col-lg-8 col-md-8">
+                  <div className="dashboard-t d-lg-flex justify-content-between align-items-center">
+                    <div className="d-flex justify-content-center align-items-center ">
+                      <div className="dashboard-icon mr-12 ">
+                        <img src="assets/img/dashbaord/stakin-l.png " alt="stakin " loading="lazy" />
+                      </div>
+                      <div className="hero-description ">
+                        <div className="hero-subs-t d-flex align-items-center justify-content-center ">
+                          <h3 className="t-18-b white-c mr-8 ">
+                            <span>{collectionMetadataList.get(currentCollectionId)?.name}</span>
+                          </h3>
+                          <img src="assets/img/icons/verified.svg " width="20 " height="20 " alt="verified " />
+                        </div>
+                        <div className="pt-1 hero-subs-s-title d-flex align-items-center justify-content-center ">
+                          <p className="t-14 neutral-c mr-4 ">
+                            {currentCollectionId}
+                          </p>
+                          <img src="assets/img/icons/chain.svg " width="20 " height="20 " alt="verified " />
+                        </div>
+                      </div>
+                    </div>
+                    {/* <div className="search-f pt-3 pt-lg-0">
                   <form action=" ">
                     <div className="d-flex justify-content-center">
                       <input type="text " name="text " id="text " placeholder="Search by Collections " />
@@ -313,15 +339,18 @@ const Mint: NextPage = () => {
                   </form>
 
                 </div> */}
+                  </div>
+                  <div className="chart-b">
+                    {
+                      chartOptions != undefined ?
+                        <Line options={chartOptions} data={chartData} /> : <></>
+                    }
+                  </div>
+                </div>
               </div>
-              <div className="chart-b">
-                {
-                  chartOptions != undefined ?
-                    <Line options={chartOptions} data={chartData} /> : <></>
-                }
-              </div>
-            </div>
-          </div>
+              :
+              <h3>You can access dashboard after stake at least 1 nft.</h3>
+          }
         </div>
       </div>
     </main>
