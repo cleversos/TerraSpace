@@ -25,7 +25,7 @@ impl Contract {
             if exist == false {
                 env::panic(b"Require correct amount of Near attached");
             }
-        } else if amount == 400000000000000000000000 {
+        } else if amount == 4000000000000000000000000 {
             let end = self.contributor_4.len();
             let mut exist = false;
             for i in 0..end {
@@ -38,7 +38,7 @@ impl Contract {
             if exist == false {
                 env::panic(b"Require correct amount of Near attached");
             }
-        } else if amount == 700000000000000000000000 {
+        } else if amount == 7000000000000000000000000 {
             let end = self.contributor_7.len();
             let mut exist = false;
             for i in 0..end {
@@ -51,7 +51,7 @@ impl Contract {
             if exist == false {
                 env::panic(b"Require correct amount of Near attached");
             }
-        } else if amount != 900000000000000000000000 {
+        } else if amount != 9000000000000000000000000 {
             env::panic(b"Require correct amount of Near attached");
         }
 
