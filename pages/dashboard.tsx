@@ -117,6 +117,32 @@ const Mint: NextPage = () => {
       setChartOptions(undefined);
       setChartData(undefined);
     } else {
+      let floor_data: number[] = [];
+      let list_data: number[] = [];
+      let volume_data: number[] = [];
+      let floor_max: number = 0;
+      let list_max: number = 0;
+      let volume_max: number = 0;
+
+      for (let i = 0; i < transactionData.length; i++) {
+        if (transactionData[i].floor_price > floor_max)
+          floor_max = transactionData[i].floor_price;
+        if (transactionData[i].total_listed > list_max)
+          list_max = transactionData[i].total_listed;
+        if (transactionData[i].instant_volume > volume_max)
+          volume_max = transactionData[i].instant_volume;
+        floor_data.push(transactionData[i].floor_price)
+        list_data.push(transactionData[i].total_listed)
+        volume_data.push(transactionData[i].instant_volume)
+      }
+
+      if (floor_max == 0)
+        floor_max = 100;
+      if (list_max == 0)
+        list_max = 200;
+      if (volume_max == 0)
+        volume_max = 100;
+
       const options = {
         responsive: true,
         interaction: {
@@ -138,16 +164,22 @@ const Mint: NextPage = () => {
             grid: {
               drawOnChartArea: false,
             },
+            min: 0,
+            max: Math.ceil(floor_max * 1.5),
           },
           y1: {
             type: 'linear' as const,
             display: true,
             position: 'left' as const,
+            min: 0,
+            max: Math.ceil(list_max * 2),
           },
           y2: {
             type: 'linear' as const,
             display: false,
             position: 'left' as const,
+            min: 0,
+            max: Math.ceil(volume_max * 4),
           },
         },
       };
@@ -162,16 +194,6 @@ const Mint: NextPage = () => {
       labels.splice(3, 0, ...label_temp);
       labels.splice(2, 0, ...label_temp);
       labels.splice(1, 0, ...label_temp);
-
-      let floor_data: number[] = [];
-      let list_data: number[] = [];
-      let volume_data: number[] = [];
-
-      for (let i = 0; i < transactionData.length; i++) {
-        floor_data.push(transactionData[i].floor_price)
-        list_data.push(transactionData[i].total_listed)
-        volume_data.push(transactionData[i].instant_volume)
-      }
 
       const data = {
         labels,
