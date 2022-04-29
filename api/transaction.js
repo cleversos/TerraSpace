@@ -102,12 +102,12 @@ async function intervalFunc() {
   for (let i = 0; i < collections.length; i++) {
     // source file is iso-8859-15 but it is converted to utf-8 automatically
     fetchUrl(FETCH_URL + collections[i], (error, meta, body) => {
+      const current_data = collectionStats.get(collections[i]);
       if (error == undefined) {
         const stats = JSON.parse(body.toString());
         if (stats.data.results._id != undefined) {
           if (!collectionStats.has(collections[i]))
             collectionStats.set(collections[i], []);
-          const current_data = collectionStats.get(collections[i]);
           current_data.push({
             total_items: stats.data.results.total_cards,
             total_listed: stats.data.results.total_card_sale,
@@ -119,13 +119,16 @@ async function intervalFunc() {
             instant_volume: current_data.length > 0 ? (Number.parseFloat(formatNearAmount(stats.data.results.volume).replace(',', '')) - current_data[current_data.length - 1].total_volume) : 0,
             day_volume: current_data.length > 143 ? (Number.parseFloat(formatNearAmount(stats.data.results.volume).replace(',', '')) - current_data[current_data.length - 143].total_volume) : 0,
           });
-          if (current_data.length > 1008)
-            current_data.shift();
-          collectionStats.set(collections[i], current_data);
+        } else {
+          current_data.push(current_data[current_data.length - 1]);
         }
       } else {
+        current_data.push(current_data[current_data.length - 1]);
         console.log(error);
       }
+      if (current_data.length > 1008)
+        current_data.shift();
+      collectionStats.set(collections[i], current_data);
     });
   }
   setTimeout(intervalFunc, 600000);
