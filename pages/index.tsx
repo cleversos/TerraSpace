@@ -3,6 +3,28 @@ import { stringify } from 'querystring';
 import { WalletContext, STAKE_CONTRACT_ID, NFT_CONTRACT_ID, MAX_GAS, NftData, NftContractMetadata, DEPOSIT } from '../contexts/wallet'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { parseNearAmount } from 'near-api-js/lib/utils/format'
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
 
 const Home: NextPage = () => {
   const { wallet, getNftMetadata, getCollectionList, getCollectionMetadata } = useContext(WalletContext)
@@ -469,48 +491,54 @@ const Home: NextPage = () => {
                   Staking Partners
                 </h2>
               </div>
-              <div className="partner-slider-wrapper position-relative text-center cont-top-space">
-                <div className="partner-carousel position-relative">
-                  <div className="partner-single">
-                    <a href="#" className="image-3">
-                      <img className="" src="assets/img/slider/partner3.png" alt="partner1" />
-                    </a>
-
-                  </div>
-                  <div className="partner-single">
-                    <a href="#" className="image-2"> <img className="" src="assets/img/slider/partner1.png" alt="partner1" /></a>
-                  </div>
-                  <div className="partner-single">
-                    <a href="#" className="image-1">
-                      <img className="" src="assets/img/slider/partner2.png" alt="partner1" />
-                    </a>
-                  </div>
-
-
-                </div>
-                <div className="row justify-content-center g-0">
-                  <div className="col-xl-7 col-lg-9 col-md-11 text-center">
-                    <div className="partnet-s-title">
-                      <h3 className="t-30 white-c">
-                        Bounty HunterSpace Guild
-                      </h3>
-                      <p className="t-16 neutral-c">
-                        Bounty HunterSpace Guild is a collection of 5555 generate beauty hunters inspired by <br />the greatest scifi universe on the planet. Each is created through a multitude of <br />moduler parts so that no two bounty
-                        hunters look the same.
-                      </p>
-                    </div>
-                    <div className="button-nav d-flex justify-content-center">
-                      <button type="button" className="button-prev mr-15">
-                        <i className="fa-solid fa-arrow-left-long"></i>
-                      </button>
-                      <button type="button" className="button-next">
-                        <i className="fa-solid fa-arrow-right-long"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
+              <div className="space-50">
               </div>
+              <Carousel swipeable={false}
+                draggable={false}
+                responsive={responsive}
+                infinite={true}
+                containerClass="carousel-container"
+                removeArrowOnDeviceType={["tablet", "mobile"]}
+                dotListClass="custom-dot-list-style"
+                itemClass="carousel-item-padding-40-px"
+                className="partner-container"
+              >
+                <div>
+                  <img src="/assets/partners/asac.jpg" alt="ASAC" />
+                  <div className="legend pt-10 pl-15 pr-15">
+                    <h4>Antisocial Ape Club:</h4>
+                    <h5 className='pt-10'>A collection of 3333 pixel art ape NFTs stored on the NEAR blockchain.</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="/assets/partners/boomonsters.png" alt="Boo" />
+                  <div className="legend pt-10 pl-15 pr-15">
+                    <h4>Boo Monsters:</h4>
+                    <h5 className='pt-10'>A limited collection of BOO Monsters roaming the blockchain.</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="/assets/partners/mara.png" alt="Mara" />
+                  <div className="legend pt-10 pl-15 pr-15">
+                    <h4>Mara Gen1:</h4>
+                    <h5 className='pt-10'>1000 unique Mara’s, holding one of these gives you access to loads of benefits from MARADAO.</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="/assets/partners/nearnaut.png" alt="Naut" />
+                  <div className="legend pt-10 pl-15 pr-15">
+                    <h4>Nearnauts:</h4>
+                    <h5 className='pt-10'>NEARNauts is a generative NFT project on the NEAR network consisting of 7777 randomly generated Nauts of varying rarity.</h5>
+                  </div>
+                </div>
+                <div>
+                  <img src="/assets/partners/thedons.jpg" alt="Dons" />
+                  <div className="legend pt-10 pl-15 pr-15">
+                    <h4>The Dons:</h4>
+                    <h5 className='pt-10'>A collection of 3,500 Mafia Bosses coming to take over NEAR Protocol. Blood makes you related. Loyalty makes you family.</h5>
+                  </div>
+                </div>
+              </Carousel>
             </div>
           </div>
           <div className="h-circle">
