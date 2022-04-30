@@ -38,7 +38,7 @@ const getObserveCollections = async () => {
   }
 }
 
-const CONTRACT_ACCOUNT_ID = "terraspace_stake_test_2.xuguangxia.near"
+const CONTRACT_ACCOUNT_ID = "terraspace_stake_test_3.xuguangxia.near"
 
 const FETCH_URL = "https://api-v2-mainnet.paras.id/collection-stats?collection_id="
 
@@ -102,12 +102,12 @@ async function intervalFunc() {
   for (let i = 0; i < collections.length; i++) {
     // source file is iso-8859-15 but it is converted to utf-8 automatically
     fetchUrl(FETCH_URL + collections[i], (error, meta, body) => {
+      if (!collectionStats.has(collections[i]))
+        collectionStats.set(collections[i], []);
       const current_data = collectionStats.get(collections[i]);
       if (error == undefined) {
         const stats = JSON.parse(body.toString());
         if (stats.data.results._id != undefined) {
-          if (!collectionStats.has(collections[i]))
-            collectionStats.set(collections[i], []);
           current_data.push({
             total_items: stats.data.results.total_cards,
             total_listed: stats.data.results.total_card_sale,
@@ -120,10 +120,36 @@ async function intervalFunc() {
             day_volume: current_data.length > 143 ? (Number.parseFloat(formatNearAmount(stats.data.results.volume).replace(',', '')) - current_data[current_data.length - 143].total_volume) : 0,
           });
         } else {
-          current_data.push(current_data[current_data.length - 1]);
+          if (current_data.length == 0) {
+            current_data.push({
+              total_items: 0,
+              total_listed: 0,
+              total_owners: 0,
+              floor_price: 0,
+              floor_price_24: 0,
+              floor_price_7: 0,
+              total_volume: 0,
+              instant_volume: 0,
+              day_volume: 0
+            });
+          } else
+            current_data.push(current_data[current_data.length - 1]);
         }
       } else {
-        current_data.push(current_data[current_data.length - 1]);
+        if (current_data.length == 0) {
+          current_data.push({
+            total_items: 0,
+            total_listed: 0,
+            total_owners: 0,
+            floor_price: 0,
+            floor_price_24: 0,
+            floor_price_7: 0,
+            total_volume: 0,
+            instant_volume: 0,
+            day_volume: 0
+          });
+        } else
+          current_data.push(current_data[current_data.length - 1]);
         console.log(error);
       }
       if (current_data.length > 1008)

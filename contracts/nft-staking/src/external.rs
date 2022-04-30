@@ -17,4 +17,6 @@ trait ExtContract {
         approval_id: u64,
         memo: String,
     );
+
+    fn nft_revoke(&mut self, token_id: TokenId, account_id: AccountId);
 }

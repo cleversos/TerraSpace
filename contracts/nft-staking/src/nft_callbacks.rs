@@ -91,5 +91,19 @@ impl NonFungibleTokenApprovalsReceiver for Contract {
 
         by_owner_id.insert(&contract_and_token_id);
         self.by_owner_id.insert(owner_id.as_ref(), &by_owner_id);
+
+        let mut by_contract_id = self.by_contract_id.get(&nft_contract_id).unwrap_or_else(|| {
+            UnorderedSet::new(
+                StorageKey::ByContractIdInner {
+                    account_id: nft_contract_id.clone(),
+                    token_id: token_id.clone()
+                }
+                .try_to_vec()
+                .unwrap(),
+            )
+        });
+
+        by_contract_id.insert(&token_id);
+        self.by_contract_id.insert(&nft_contract_id, &by_contract_id);
     }
 }

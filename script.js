@@ -60,8 +60,8 @@ switch (configSetting) {
     console.log(`please choose a configuration `);
 }
 
-const STAKING_CONTRACT_ID = "terraspace_stake_test_2.xuguangxia.near";
-const NFT_CONTRACT_ID = "terraspace_mint_test_2.xuguangxia.near";
+const STAKING_CONTRACT_ID = "terraspace_stake_test_3.xuguangxia.near";
+const NFT_CONTRACT_ID = "terraspace_mint_test_3.xuguangxia.near";
 const KOKUMO_CONTRACT_ID = "kokumokongz.near"
 
 const Test = async () => {
@@ -108,9 +108,9 @@ const Test = async () => {
   // STAKING
   // result = await account.functionCall({
   //   contractId: STAKING_CONTRACT_ID,
-  //   methodName: "append_nft_contract_id",
+  //   methodName: "remove_nft_contract_id",
   //   args: {
-  //     nft_contract_id: "kokumokongz.near",
+  //     nft_contract_id: "omarbibz.near",
   //   },
   //   gas: GAS_FOR_NFT_TRANSFER,
   // });

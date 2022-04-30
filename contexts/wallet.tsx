@@ -9,13 +9,13 @@ import { Provider } from "near-api-js/lib/providers";
 
 const { KeyPair, keyStores, connect, WalletConnection, utils: { format: { formatNearAmount } } } = nearAPI;
 
-export const STAKE_CONTRACT_ID = "terraspace_stake_test_2.xuguangxia.near"
-export const NFT_CONTRACT_ID = "terraspace_mint_test_2.xuguangxia.near"
+export const STAKE_CONTRACT_ID = "terraspace_stake_test_3.xuguangxia.near"
+export const NFT_CONTRACT_ID = "terraspace_mint_test_3.xuguangxia.near"
 export const GAS_FOR_NFT_APPROVE = "20000000000000";
 export const GAS_FOR_RESOLVE_TRANSFER = "10000000000000";
 export const GAS_FOR_SIMPLE_TRANSACTION = "10000000000000";
 export const MAX_GAS = "300000000000000";
-export const DEPOSIT = "540000000000000000000";
+export const DEPOSIT = "1000000000000000000000";
 
 interface ConnectionContextProps {
   near: nearAPI.Near | undefined
@@ -177,6 +177,7 @@ const WalletProvider = (props: any) => {
   }
 
   const getCollectionMetadata = async (account_id: string) => {
+    console.log(account_id);
     const rawResult: any = await provider?.query({
       request_type: "call_function",
       account_id: account_id,
@@ -185,7 +186,7 @@ const WalletProvider = (props: any) => {
       finality: "optimistic",
     })
     const results = JSON.parse(Buffer.from(rawResult.result).toString())
-
+    console.log(results);
     return results
   }
 

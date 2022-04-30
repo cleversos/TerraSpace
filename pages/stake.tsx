@@ -14,7 +14,7 @@ const Mint: NextPage = () => {
   const [nftMetadata, setNftMetadata] = useState<Map<string, NftContractMetadata>>(new Map());
   const [stakeList, setStakeList] = useState<Map<string, string[]>>(new Map());
   const [nftCountList, setNftCountList] = useState<Map<string, number>>(new Map());
-
+  const [totalStaked, setTotalStaked] = useState<number>(0);
 
   const getTrendingCollectionData = async () => {
     const getAPI = async () => {
@@ -76,6 +76,13 @@ const Mint: NextPage = () => {
   }
 
   const fetchData = async () => {
+    const totalCount = await wallet?.account().viewFunction(STAKE_CONTRACT_ID,
+      "get_supply_by_contract_id",
+      {
+        account_id: NFT_CONTRACT_ID,
+      });
+    setTotalStaked(totalCount);
+
     const NFTData = new Map<string, NftData[]>();
     for (let i = 0; i < nftContractList.length; i++) {
       const nftList = await wallet?.account().viewFunction(nftContractList[i],
@@ -201,7 +208,7 @@ const Mint: NextPage = () => {
                       Total Staked
                     </p>
                     <h3 className="t-20 white-c pt-1">
-                      <span className="counter">{stakeList.get(NFT_CONTRACT_ID) != undefined ? stakeList.get(NFT_CONTRACT_ID)?.length : 0}</span>
+                      <span className="counter">{totalStaked}</span>
                     </h3>
                   </div>
                 </div>
@@ -300,10 +307,11 @@ const Mint: NextPage = () => {
                                       <div className="stake-s-v mt-30">
                                         <div className="d-flex align-items-center mb-12">
                                           <div className="stking-icon mr-12">
-                                            {nftMetadata.get(contract_id)?.icon != undefined ?
+                                            {/* {nftMetadata.get(contract_id)?.icon != undefined ?
                                               <img className="mr-8" src={nftMetadata.get(contract_id)?.icon} alt="Icon" width={32} height={32} loading="lazy" /> :
                                               <img className="mr-8" src="assets/img/icons/Near.png" alt="Near" width={32} height={32} loading="lazy" />
-                                            }
+                                            } */}
+                                            <img className="mr-8" src={"assets/icons/" + contract_id + ".png"} alt="Near" width={32} height={32} loading="lazy" />
                                           </div>
                                           <div className="hero-subs-t d-flex align-items-center">
                                             <h3 className="t-14 neutral-c  mr-8">
@@ -342,10 +350,11 @@ const Mint: NextPage = () => {
                       <div className="navs-title ">
                         <div className="d-flex align-items-center mb-12">
                           <div className="stking-icon mr-12">
-                            {nftMetadata.get(contract_id)?.icon != undefined ?
+                            {/* {nftMetadata.get(contract_id)?.icon != undefined ?
                               <img className="mr-8" src={nftMetadata.get(contract_id)?.icon} alt="Icon" width={32} height={32} loading="lazy" /> :
                               <img className="mr-8" src="assets/img/icons/Near.png" alt="Near" width={32} height={32} loading="lazy" />
-                            }
+                            } */}
+                            <img className="mr-8" src={"assets/icons/" + contract_id + ".png"} alt="Near" width={32} height={32} loading="lazy" />
                           </div>
                           <div className="hero-subs-t d-flex align-items-center">
                             <h3 className="t-20 white-c mr-8">
@@ -377,10 +386,11 @@ const Mint: NextPage = () => {
                                       <div className="stake-s-v mt-30">
                                         <div className="d-flex align-items-center mb-12">
                                           <div className="stking-icon mr-12">
-                                            {nftMetadata.get(contract_id)?.icon != undefined ?
+                                            {/* {nftMetadata.get(contract_id)?.icon != undefined ?
                                               <img className="mr-8" src={nftMetadata.get(contract_id)?.icon} alt="Icon" width={32} height={32} loading="lazy" /> :
                                               <img className="mr-8" src="assets/img/icons/Near.png" alt="Near" width={32} height={32} loading="lazy" />
-                                            }
+                                            } */}
+                                            <img className="mr-8" src={"assets/icons/" + contract_id + ".png"} alt="Near" width={32} height={32} loading="lazy" />
                                           </div>
                                           <div className="hero-subs-t d-flex align-items-center">
                                             <h3 className="t-14 neutral-c  mr-8">

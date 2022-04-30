@@ -32,10 +32,22 @@ impl Contract {
 
         self.staking_informations
             .remove(&contract_and_token_id.clone());
-        
+
+        ext_contract::nft_revoke(
+            token_id.clone(),
+            env::current_account_id(),
+            &nft_contract_id,
+            1,
+            GAS_FOR_NFT_APPROVE,
+        );
+    
         let mut by_owner_id = self.by_owner_id.get(&account_id).unwrap();
         by_owner_id.remove(&contract_and_token_id);
         self.by_owner_id.insert(&account_id, &by_owner_id);
+
+        let mut by_contract_id = self.by_contract_id.get(&account_id).unwrap();
+        by_contract_id.remove(&token_id);
+        self.by_contract_id.insert(&account_id, &by_contract_id);
     }
 
     #[payable]
@@ -62,8 +74,20 @@ impl Contract {
         self.staking_informations
             .remove(&contract_and_token_id.clone());
         
+        ext_contract::nft_revoke(
+            token_id.clone(),
+            env::current_account_id(),
+            &nft_contract_id,
+            1,
+            GAS_FOR_NFT_APPROVE,
+        );
+    
         let mut by_owner_id = self.by_owner_id.get(&account_id).unwrap();
         by_owner_id.remove(&contract_and_token_id);
         self.by_owner_id.insert(&account_id, &by_owner_id);
+
+        let mut by_contract_id = self.by_contract_id.get(&account_id).unwrap();
+        by_contract_id.remove(&contract_and_token_id);
+        self.by_contract_id.insert(&account_id, &by_contract_id);
     }
 }

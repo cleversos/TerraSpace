@@ -97,10 +97,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                                         </div>
                                         <ul className="res-link">
                                             <li>
-                                                <a href="#">Documentations</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Blogs</a>
+                                                <a href="https://terraspaces.gitbook.io/terraspaces" target="_blank">Documentations</a>
                                             </li>
                                         </ul>
                                     </div>

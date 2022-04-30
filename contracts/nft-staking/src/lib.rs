@@ -30,6 +30,7 @@ const GAS_FOR_FT_TRANSFER: Gas = 5_000_000_000_000;
 /// greedy max Tgas for resolve_purchase
 const GAS_FOR_ROYALTIES: Gas = 115_000_000_000_000;
 const GAS_FOR_NFT_TRANSFER: Gas = 15_000_000_000_000;
+const GAS_FOR_NFT_APPROVE: Gas = 30_000_000_000_000;
 const BID_HISTORY_LENGTH_DEFAULT: u8 = 1;
 const NO_DEPOSIT: Balance = 0;
 const STORAGE_PER_SALE: u128 = 1000 * STORAGE_PRICE_PER_BYTE;
@@ -55,6 +56,7 @@ pub struct Contract {
     pub observe_ids: UnorderedSet<AccountId>,
     pub staking_informations: UnorderedMap<ContractAndTokenId, StakeInfo>,
     pub by_owner_id: LookupMap<AccountId, UnorderedSet<ContractAndTokenId>>,
+    pub by_contract_id: LookupMap<AccountId, UnorderedSet<String>>,
     pub storage_deposits: LookupMap<AccountId, Balance>,
 }
 
@@ -64,6 +66,9 @@ pub enum StorageKey {
     StakingInformation,
     ByOwnerId,
     ByOwnerIdInner { account_id_hash: CryptoHash },
+    ByContractId,
+    ByContractIdInner { account_id: AccountId,
+    token_id: String },
     NftContractIds,
     ObserveIds,
     StorageDeposits,
@@ -82,12 +87,17 @@ impl Contract {
             // nft_contract_id: String::new(StorageKey::NftContractId),
             staking_informations: UnorderedMap::new(StorageKey::StakingInformation),
             by_owner_id: LookupMap::new(StorageKey::ByOwnerId),
+            by_contract_id: LookupMap::new(StorageKey::ByContractId),
             storage_deposits: LookupMap::new(StorageKey::StorageDeposits),
         };
-        this.nft_contract_ids.insert(&"terraspace_mint_test_2.xuguangxia.near".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"terraspace_mint_test_3.xuguangxia.near".to_string().try_into().unwrap());
         this.nft_contract_ids.insert(&"asac.near".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"mara-smartcontract.near".to_string().try_into().unwrap());
         this.nft_contract_ids.insert(&"nearnautnft.near".to_string().try_into().unwrap());
-        this.observe_ids.insert(&"terraspace_mint_test_2.xuguangxia.near".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"nft.thedons.near".to_string().try_into().unwrap());
+        this.nft_contract_ids.insert(&"omarbibz.near".to_string().try_into().unwrap());
+
+        this.observe_ids.insert(&"terraspace_mint_test_3.xuguangxia.near".to_string().try_into().unwrap());
         this.observe_ids.insert(&"asac.near".to_string().try_into().unwrap());
         this.observe_ids.insert(&"nearnautnft.near".to_string().try_into().unwrap());
         this.observe_ids.insert(&"kokumokongz.near".to_string().try_into().unwrap());

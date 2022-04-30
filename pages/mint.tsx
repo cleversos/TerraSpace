@@ -17,15 +17,15 @@ const Mint: NextPage = () => {
         const contributor_4 = await wallet?.account().viewFunction(NFT_CONTRACT_ID, "get_contributor_4");
         const contributor_7 = await wallet?.account().viewFunction(NFT_CONTRACT_ID, "get_contributor_7");
 
-        let mint_price = "0.9";
+        let mint_price = "9";
         if (contributor_0.includes(wallet?.getAccountId())) {
             mint_price = "0";
         }
         else if (contributor_4.includes(wallet?.getAccountId())) {
-            mint_price = "0.4";
+            mint_price = "4";
         }
         else if (contributor_7.includes(wallet?.getAccountId())) {
-            mint_price = "0.7";
+            mint_price = "7";
         }
 
         await wallet?.account().functionCall(
